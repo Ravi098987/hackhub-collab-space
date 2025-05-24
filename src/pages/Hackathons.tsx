@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -20,11 +19,11 @@ export default function Hackathons() {
   const { toast } = useToast()
 
   const handleRegister = (hackathonName: string) => {
-    // TODO: Integrate with Supabase
+    // TODO: Integrate with Supabase to register user for hackathon
     console.log('Registering for:', hackathonName)
     toast({
       title: "Registration Successful!",
-      description: `You have registered for ${hackathonName}.`,
+      description: `You have been registered for ${hackathonName}. Check your email for confirmation.`,
     })
   }
 
@@ -303,7 +302,7 @@ export default function Hackathons() {
 
                   <div className="flex gap-2 pt-2">
                     <Button 
-                      className="flex-1 gradient-bg"
+                      className="flex-1 gradient-bg hover:opacity-90 transition-opacity"
                       onClick={() => handleRegister(hackathon.title)}
                     >
                       Register Now
