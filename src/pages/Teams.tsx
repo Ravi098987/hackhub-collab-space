@@ -6,8 +6,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Users, Search, Plus, MessageCircle, Code, Settings } from "lucide-react"
 import { Link } from "react-router-dom"
+import { CreateTeamModal } from "@/components/CreateTeamModal"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Teams() {
+  const { toast } = useToast()
+
+  const handleJoinRequest = (teamName: string) => {
+    // TODO: Integrate with Supabase
+    console.log('Requesting to join:', teamName)
+    toast({
+      title: "Request Sent!",
+      description: `Your request to join ${teamName} has been sent.`,
+    })
+  }
+
   const myTeams = [
     {
       id: 1,
@@ -68,10 +81,7 @@ export default function Teams() {
           <h1 className="text-3xl font-bold">Teams</h1>
           <p className="text-muted-foreground">Manage your teams and find new collaboration opportunities</p>
         </div>
-        <Button className="gradient-bg">
-          <Plus className="w-4 h-4 mr-2" />
-          Create New Team
-        </Button>
+        <CreateTeamModal />
       </div>
 
       {/* Search */}
@@ -190,7 +200,10 @@ export default function Teams() {
                     </div>
                   </div>
 
-                  <Button className="w-full gradient-bg">
+                  <Button 
+                    className="w-full gradient-bg"
+                    onClick={() => handleJoinRequest(team.name)}
+                  >
                     Request to Join
                   </Button>
                 </div>

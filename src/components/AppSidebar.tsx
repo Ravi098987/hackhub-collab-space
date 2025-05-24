@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { AuthModal } from "./AuthModal"
+import { useToast } from "@/hooks/use-toast"
 
 const menuItems = [
   {
@@ -45,6 +47,23 @@ const menuItems = [
 ]
 
 export function AppSidebar() {
+  const { toast } = useToast()
+  const isAuthenticated = true // TODO: Replace with actual auth state
+
+  const handleLogout = () => {
+    // TODO: Integrate with Supabase auth
+    console.log('Logging out...')
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out."
+    })
+  }
+
+  const handleProfile = () => {
+    // TODO: Navigate to profile page
+    console.log('Opening profile...')
+  }
+
   return (
     <Sidebar className="border-r border-border">
       <SidebarHeader className="p-6">
@@ -77,26 +96,37 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <Avatar className="w-8 h-8">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">John Doe</p>
-            <p className="text-xs text-muted-foreground">Participant</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="ghost" size="sm" className="flex-1">
-            <User className="w-4 h-4 mr-2" />
-            Profile
-          </Button>
-          <Button variant="ghost" size="sm" className="flex-1">
-            <LogOut className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
-        </div>
+        {isAuthenticated ? (
+          <>
+            <div className="flex items-center gap-3 mb-3">
+              <Avatar className="w-8 h-8">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate">John Doe</p>
+                <p className="text-xs text-muted-foreground">Participant</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="ghost" size="sm" className="flex-1" onClick={handleProfile}>
+                <User className="w-4 h-4 mr-2" />
+                Profile
+              </Button>
+              <Button variant="ghost" size="sm" className="flex-1" onClick={handleLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </>
+        ) : (
+          <AuthModal>
+            <Button className="w-full gradient-bg">
+              <LogOut className="w-4 h-4 mr-2" />
+              Sign In
+            </Button>
+          </AuthModal>
+        )}
       </SidebarFooter>
     </Sidebar>
   )

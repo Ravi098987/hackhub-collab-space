@@ -13,8 +13,30 @@ import {
   Star,
   Filter
 } from "lucide-react"
+import { HostHackathonModal } from "@/components/HostHackathonModal"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Hackathons() {
+  const { toast } = useToast()
+
+  const handleRegister = (hackathonName: string) => {
+    // TODO: Integrate with Supabase
+    console.log('Registering for:', hackathonName)
+    toast({
+      title: "Registration Successful!",
+      description: `You have registered for ${hackathonName}.`,
+    })
+  }
+
+  const handleContinue = (hackathonName: string) => {
+    // TODO: Navigate to hackathon workspace
+    console.log('Continuing:', hackathonName)
+    toast({
+      title: "Welcome back!",
+      description: `Continuing ${hackathonName}.`,
+    })
+  }
+
   const activeHackathons = [
     {
       id: 1,
@@ -123,10 +145,7 @@ export default function Hackathons() {
             <Filter className="w-4 h-4 mr-2" />
             Filter
           </Button>
-          <Button className="gradient-bg">
-            <Trophy className="w-4 h-4 mr-2" />
-            Host Hackathon
-          </Button>
+          <HostHackathonModal />
         </div>
       </div>
 
@@ -197,7 +216,10 @@ export default function Hackathons() {
                   <div className="flex gap-2 pt-2">
                     {hackathon.registered ? (
                       <>
-                        <Button className="flex-1 gradient-bg">
+                        <Button 
+                          className="flex-1 gradient-bg"
+                          onClick={() => handleContinue(hackathon.title)}
+                        >
                           Continue
                         </Button>
                         <Button variant="outline">
@@ -206,7 +228,10 @@ export default function Hackathons() {
                       </>
                     ) : (
                       <>
-                        <Button className="flex-1 gradient-bg">
+                        <Button 
+                          className="flex-1 gradient-bg"
+                          onClick={() => handleRegister(hackathon.title)}
+                        >
                           Register Now
                         </Button>
                         <Button variant="outline">
@@ -277,7 +302,10 @@ export default function Hackathons() {
                   </div>
 
                   <div className="flex gap-2 pt-2">
-                    <Button className="flex-1 gradient-bg">
+                    <Button 
+                      className="flex-1 gradient-bg"
+                      onClick={() => handleRegister(hackathon.title)}
+                    >
                       Register Now
                     </Button>
                     <Button variant="outline">

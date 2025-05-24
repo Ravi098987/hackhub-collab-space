@@ -17,12 +17,34 @@ import {
   AlertCircle 
 } from "lucide-react"
 import { useState } from "react"
+import { FileUpload } from "@/components/FileUpload"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Submit() {
   const [projectName, setProjectName] = useState("")
   const [description, setDescription] = useState("")
   const [githubUrl, setGithubUrl] = useState("")
   const [liveUrl, setLiveUrl] = useState("")
+  const { toast } = useToast()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // TODO: Integrate with Supabase
+    console.log('Submitting project:', { projectName, description, githubUrl, liveUrl })
+    toast({
+      title: "Project Submitted!",
+      description: "Your project has been successfully submitted for review.",
+    })
+  }
+
+  const handleSaveDraft = () => {
+    // TODO: Save to Supabase
+    console.log('Saving draft:', { projectName, description, githubUrl, liveUrl })
+    toast({
+      title: "Draft Saved",
+      description: "Your project has been saved as a draft.",
+    })
+  }
 
   const submissions = [
     {
@@ -106,7 +128,7 @@ export default function Submit() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="projectName">Project Name *</Label>
@@ -115,6 +137,7 @@ export default function Submit() {
                   placeholder="Enter your project name"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -131,6 +154,7 @@ export default function Submit() {
                 className="min-h-[120px]"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                required
               />
             </div>
 
@@ -167,41 +191,29 @@ export default function Submit() {
             <div className="space-y-4">
               <Label>Additional Files</Label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="p-4 border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    <FileText className="w-8 h-8 text-muted-foreground" />
-                    <p className="text-sm font-medium">Presentation</p>
-                    <p className="text-xs text-muted-foreground">PPT, PDF (max 10MB)</p>
-                    <Button size="sm" variant="outline">
-                      <Upload className="w-4 h-4 mr-2" />
-                      Upload
-                    </Button>
-                  </div>
-                </Card>
+                <FileUpload
+                  accept=".ppt,.pptx,.pdf"
+                  maxSize={10}
+                  title="Presentation"
+                  description="PPT, PDF (max 10MB)"
+                  icon={FileText}
+                />
 
-                <Card className="p-4 border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    <Image className="w-8 h-8 text-muted-foreground" />
-                    <p className="text-sm font-medium">Screenshots</p>
-                    <p className="text-xs text-muted-foreground">PNG, JPG (max 5MB each)</p>
-                    <Button size="sm" variant="outline">
-                      <Upload className="w-4 h-4 mr-2" />
-                      Upload
-                    </Button>
-                  </div>
-                </Card>
+                <FileUpload
+                  accept=".png,.jpg,.jpeg"
+                  maxSize={5}
+                  title="Screenshots"
+                  description="PNG, JPG (max 5MB each)"
+                  icon={Image}
+                />
 
-                <Card className="p-4 border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    <Video className="w-8 h-8 text-muted-foreground" />
-                    <p className="text-sm font-medium">Demo Video</p>
-                    <p className="text-xs text-muted-foreground">MP4 (max 100MB)</p>
-                    <Button size="sm" variant="outline">
-                      <Upload className="w-4 h-4 mr-2" />
-                      Upload
-                    </Button>
-                  </div>
-                </Card>
+                <FileUpload
+                  accept=".mp4,.mov,.avi"
+                  maxSize={100}
+                  title="Demo Video"
+                  description="MP4 (max 100MB)"
+                  icon={Video}
+                />
               </div>
             </div>
 
@@ -214,7 +226,7 @@ export default function Submit() {
                     {tech}
                   </Badge>
                 ))}
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" type="button">
                   + Add Technology
                 </Button>
               </div>
@@ -225,8 +237,12 @@ export default function Submit() {
                 * Required fields. Your submission will be reviewed by the judges.
               </div>
               <div className="flex gap-3">
-                <Button variant="outline">Save as Draft</Button>
-                <Button className="gradient-bg">Submit Project</Button>
+                <Button type="button" variant="outline" onClick={handleSaveDraft}>
+                  Save as Draft
+                </Button>
+                <Button type="submit" className="gradient-bg">
+                  Submit Project
+                </Button>
               </div>
             </div>
           </form>

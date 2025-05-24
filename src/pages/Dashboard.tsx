@@ -1,10 +1,10 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Users, Clock, Trophy, Code, Plus, ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
+import { CreateTeamModal } from "@/components/CreateTeamModal"
 
 export default function Dashboard() {
   const stats = [
@@ -33,10 +33,7 @@ export default function Dashboard() {
           <p className="text-muted-foreground">Here's what's happening with your hackathon journey</p>
         </div>
         <div className="flex gap-3">
-          <Button className="gradient-bg">
-            <Plus className="w-4 h-4 mr-2" />
-            Create Team
-          </Button>
+          <CreateTeamModal />
           <Button variant="outline">
             <Trophy className="w-4 h-4 mr-2" />
             Join Hackathon
