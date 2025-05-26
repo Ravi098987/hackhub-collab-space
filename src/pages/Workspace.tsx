@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -6,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { CodeEditor } from "@/components/CodeEditor"
 import { 
   MessageCircle, 
   Code, 
@@ -100,35 +100,14 @@ greetTeam();`)
             <TabsContent value="code" className="mt-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>Collaborative Code Editor</span>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">JavaScript</Badge>
-                      <Button size="sm" variant="outline">
-                        Run Code
-                      </Button>
-                    </div>
-                  </CardTitle>
+                  <CardTitle>Collaborative Code Editor</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="relative">
-                    <Textarea
-                      value={code}
-                      onChange={(e) => setCode(e.target.value)}
-                      className="min-h-[400px] font-mono text-sm resize-none"
-                      placeholder="Start coding together..."
-                    />
-                    <div className="absolute top-2 right-2 flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <Avatar className="w-6 h-6 border-2 border-background">
-                          <AvatarFallback className="text-xs">SS</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="w-6 h-6 border-2 border-background">
-                          <AvatarFallback className="text-xs">LW</AvatarFallback>
-                        </Avatar>
-                      </div>
-                    </div>
-                  </div>
+                  <CodeEditor
+                    value={code}
+                    onChange={setCode}
+                    language="javascript"
+                  />
                 </CardContent>
               </Card>
             </TabsContent>
