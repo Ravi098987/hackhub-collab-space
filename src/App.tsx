@@ -12,6 +12,7 @@ import Teams from "./pages/Teams";
 import Workspace from "./pages/Workspace";
 import Hackathons from "./pages/Hackathons";
 import Submit from "./pages/Submit";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
                   <Route path="/workspace" element={<Workspace />} />
                   <Route path="/hackathons" element={<Hackathons />} />
                   <Route path="/submit" element={<Submit />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>

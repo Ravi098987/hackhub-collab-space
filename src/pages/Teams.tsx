@@ -7,10 +7,14 @@ import { Input } from "@/components/ui/input"
 import { Users, Search, Plus, MessageCircle, Code, Settings } from "lucide-react"
 import { Link } from "react-router-dom"
 import { CreateTeamModal } from "@/components/CreateTeamModal"
+import { ChatWindow } from "@/components/ChatWindow"
+import { TeamSettingsModal } from "@/components/TeamSettingsModal"
 import { useToast } from "@/hooks/use-toast"
+import { useState } from "react"
 
 export default function Teams() {
   const { toast } = useToast()
+  const [searchTerm, setSearchTerm] = useState("")
 
   const handleJoinRequest = (teamName: string) => {
     // TODO: Integrate with Supabase
@@ -74,6 +78,14 @@ export default function Teams() {
     }
   ]
 
+  // Filter teams based on search term
+  const filteredAvailableTeams = availableTeams.filter(team =>
+    team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    team.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    team.hackathon.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    team.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()))
+  )
+
   return (
     <div className="p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -87,7 +99,12 @@ export default function Teams() {
       {/* Search */}
       <div className="relative max-w-md">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-        <Input placeholder="Search teams..." className="pl-10" />
+        <Input 
+          placeholder="Search teams..." 
+          className="pl-10" 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       {/* My Teams */}
@@ -113,9 +130,15 @@ export default function Teams() {
                         <Code className="w-4 h-4" />
                       </Button>
                     </Link>
-                    <Button size="sm" variant="outline">
-                      <Settings className="w-4 h-4" />
-                    </Button>
+                    <TeamSettingsModal
+                      teamName={team.name}
+                      teamDescription={team.description}
+                      members={team.members}
+                    >
+                      <Button size="sm" variant="outline">
+                        <Settings className="w-4 h-4" />
+                      </Button>
+                    </TeamSettingsModal>
                   </div>
                 </div>
               </CardHeader>
@@ -146,10 +169,12 @@ export default function Teams() {
                   <div className="flex items-center justify-between pt-2 border-t">
                     <span className="text-sm text-muted-foreground">Last activity: {team.lastActivity}</span>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <MessageCircle className="w-4 h-4 mr-2" />
-                        Chat
-                      </Button>
+                      <ChatWindow teamName={team.name}>
+                        <Button size="sm" variant="outline">
+                          <MessageCircle className="w-4 h-4 mr-2" />
+                          Chat
+                        </Button>
+                      </ChatWindow>
                       <Link to="/workspace">
                         <Button size="sm" className="gradient-bg">
                           Open Workspace
@@ -167,50 +192,60 @@ export default function Teams() {
       {/* Available Teams */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Teams Looking for Members</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {availableTeams.map((team) => (
-            <Card key={team.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{team.name}</CardTitle>
-                <CardDescription>{team.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm">{team.membersCount}/{team.maxMembers} members</span>
+        {filteredAvailableTeams.length === 0 ? (
+          <Card>
+            <CardContent className="text-center py-8">
+              <p className="text-muted-foreground">
+                {searchTerm ? `No teams found matching "${searchTerm}"` : "No teams available right now"}
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {filteredAvailableTeams.map((team) => (
+              <Card key={team.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle>{team.name}</CardTitle>
+                  <CardDescription>{team.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm">{team.membersCount}/{team.maxMembers} members</span>
+                      </div>
+                      <Badge variant="outline">{team.hackathon}</Badge>
                     </div>
-                    <Badge variant="outline">{team.hackathon}</Badge>
-                  </div>
 
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground mb-2">Looking for:</p>
-                    <Badge>{team.lookingFor}</Badge>
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground mb-2">Tech Stack:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {team.skills.map((skill) => (
-                        <Badge key={skill} variant="secondary" className="text-xs">
-                          {skill}
-                        </Badge>
-                      ))}
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-2">Looking for:</p>
+                      <Badge>{team.lookingFor}</Badge>
                     </div>
-                  </div>
 
-                  <Button 
-                    className="w-full gradient-bg"
-                    onClick={() => handleJoinRequest(team.name)}
-                  >
-                    Request to Join
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-2">Tech Stack:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {team.skills.map((skill) => (
+                          <Badge key={skill} variant="secondary" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button 
+                      className="w-full gradient-bg"
+                      onClick={() => handleJoinRequest(team.name)}
+                    >
+                      Request to Join
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

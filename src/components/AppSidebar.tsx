@@ -44,6 +44,11 @@ const menuItems = [
     url: "/submit",
     icon: Trophy,
   },
+  {
+    title: "Profile",
+    url: "/profile",
+    icon: User,
+  },
 ]
 
 export function AppSidebar() {
@@ -57,11 +62,6 @@ export function AppSidebar() {
       title: "Logged out",
       description: "You have been successfully logged out."
     })
-  }
-
-  const handleProfile = () => {
-    // TODO: Navigate to profile page
-    console.log('Opening profile...')
   }
 
   return (
@@ -109,10 +109,12 @@ export function AppSidebar() {
               </div>
             </div>
             <div className="flex gap-2">
-              <Button variant="ghost" size="sm" className="flex-1" onClick={handleProfile}>
-                <User className="w-4 h-4 mr-2" />
-                Profile
-              </Button>
+              <Link to="/profile" className="flex-1">
+                <Button variant="ghost" size="sm" className="w-full">
+                  <User className="w-4 h-4 mr-2" />
+                  Profile
+                </Button>
+              </Link>
               <Button variant="ghost" size="sm" className="flex-1" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
