@@ -417,7 +417,7 @@ export default function Landing() {
           </div>
           
           <div className="pt-8 border-t border-white/10 text-center text-gray-400">
-            <p>&copy; 2024 HackHub. All rights reserved. Built with ❤️ for innovators worldwide.</p>
+            <p>&copy; 2025 HackHub. All rights reserved. Built with ❤️ for innovators worldwide.</p>
           </div>
         </div>
       </footer>
