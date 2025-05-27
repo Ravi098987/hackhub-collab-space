@@ -56,12 +56,15 @@ export function AppSidebar() {
   const isAuthenticated = true // TODO: Replace with actual auth state
 
   const handleLogout = () => {
-    // TODO: Integrate with Supabase auth
+    // Clear authentication state
+    localStorage.removeItem('hackhub_auth')
     console.log('Logging out...')
     toast({
       title: "Logged out",
       description: "You have been successfully logged out."
     })
+    // Reload to trigger auth state change and show landing page
+    window.location.reload()
   }
 
   return (
