@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -19,6 +20,7 @@ import {
   Download
 } from "lucide-react"
 import { useState } from "react"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Workspace() {
   const [message, setMessage] = useState("")
@@ -34,27 +36,115 @@ function mainFeature() {
 
 greetTeam();`)
 
-  const chatMessages = [
+  const [chatMessages, setChatMessages] = useState([
     { user: "Sarah", message: "Hey team! I've started working on the frontend components", time: "10:30 AM", avatar: "SS" },
     { user: "Mike", message: "Great! I'm designing the user interface. Should be ready for review soon.", time: "10:32 AM", avatar: "MJ" },
     { user: "Lisa", message: "I'll handle the backend API. Let me know what endpoints you need.", time: "10:35 AM", avatar: "LW" },
     { user: "John", message: "Perfect! Let's sync up on the database schema in 30 mins.", time: "10:40 AM", avatar: "JD" },
-  ]
+  ])
 
-  const tasks = [
+  const [tasks, setTasks] = useState([
     { id: 1, task: "Set up project structure", completed: true, assignee: "John" },
     { id: 2, task: "Design user interface mockups", completed: true, assignee: "Mike" },
     { id: 3, task: "Implement user authentication", completed: false, assignee: "Sarah" },
     { id: 4, task: "Create database schema", completed: false, assignee: "Lisa" },
     { id: 5, task: "Build REST API endpoints", completed: false, assignee: "Lisa" },
     { id: 6, task: "Frontend components development", completed: false, assignee: "Sarah" },
-  ]
+  ])
 
-  const files = [
+  const [files, setFiles] = useState([
     { name: "project_proposal.pdf", size: "2.4 MB", uploadedBy: "John", time: "2 hours ago" },
     { name: "ui_mockups.fig", size: "5.7 MB", uploadedBy: "Mike", time: "1 hour ago" },
     { name: "api_documentation.md", size: "145 KB", uploadedBy: "Lisa", time: "30 mins ago" },
-  ]
+  ])
+
+  const [notes, setNotes] = useState(`# Team Alpha - Project Notes
+
+## Project Overview
+Building an AI-powered chatbot for customer service automation.
+
+## Key Features
+- Natural language processing
+- Multi-language support
+- Integration with existing systems
+- Real-time responses
+
+## Technical Stack
+- Frontend: React.js
+- Backend: Node.js + Express
+- Database: MongoDB
+- AI/ML: OpenAI API
+
+## Timeline
+- Day 1: Project setup and planning ✅
+- Day 2: Core development
+- Day 3: Testing and refinement
+- Final: Presentation preparation`)
+
+  const { toast } = useToast()
+
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      const newMessage = {
+        user: "You",
+        message: message.trim(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        avatar: "YU"
+      }
+      setChatMessages(prev => [...prev, newMessage])
+      setMessage("")
+      toast({
+        title: "Message sent",
+        description: "Your message has been sent to the team chat.",
+      })
+    }
+  }
+
+  const handleTaskToggle = (taskId: number) => {
+    setTasks(prev => prev.map(task => 
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    ))
+    toast({
+      title: "Task updated",
+      description: "Task status has been changed.",
+    })
+  }
+
+  const handleAddTask = () => {
+    const newTask = {
+      id: tasks.length + 1,
+      task: "New task",
+      completed: false,
+      assignee: "Unassigned"
+    }
+    setTasks(prev => [...prev, newTask])
+    toast({
+      title: "Task added",
+      description: "A new task has been added to the list.",
+    })
+  }
+
+  const handleFileUpload = () => {
+    // Simulate file upload
+    const newFile = {
+      name: "new_document.pdf",
+      size: "1.2 MB",
+      uploadedBy: "You",
+      time: "just now"
+    }
+    setFiles(prev => [...prev, newFile])
+    toast({
+      title: "File uploaded",
+      description: "Your file has been uploaded successfully.",
+    })
+  }
+
+  const handleFileDownload = (fileName: string) => {
+    toast({
+      title: "Download started",
+      description: `Downloading ${fileName}...`,
+    })
+  }
 
   return (
     <div className="p-6 space-y-6 animate-fade-in">
@@ -121,28 +211,8 @@ greetTeam();`)
                   <Textarea
                     placeholder="Write your team notes here..."
                     className="min-h-[400px] resize-none"
-                    defaultValue={`# Team Alpha - Project Notes
-
-## Project Overview
-Building an AI-powered chatbot for customer service automation.
-
-## Key Features
-- Natural language processing
-- Multi-language support
-- Integration with existing systems
-- Real-time responses
-
-## Technical Stack
-- Frontend: React.js
-- Backend: Node.js + Express
-- Database: MongoDB
-- AI/ML: OpenAI API
-
-## Timeline
-- Day 1: Project setup and planning ✅
-- Day 2: Core development
-- Day 3: Testing and refinement
-- Final: Presentation preparation`}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
                   />
                 </CardContent>
               </Card>
@@ -153,7 +223,7 @@ Building an AI-powered chatbot for customer service automation.
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle>Shared Files</CardTitle>
-                    <Button size="sm" className="gradient-bg">
+                    <Button size="sm" className="gradient-bg" onClick={handleFileUpload}>
                       <Upload className="w-4 h-4 mr-2" />
                       Upload File
                     </Button>
@@ -169,7 +239,11 @@ Building an AI-powered chatbot for customer service automation.
                             {file.size} • Uploaded by {file.uploadedBy} • {file.time}
                           </p>
                         </div>
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleFileDownload(file.name)}
+                        >
                           <Download className="w-4 h-4" />
                         </Button>
                       </div>
@@ -213,9 +287,13 @@ Building an AI-powered chatbot for customer service automation.
                   placeholder="Type a message..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && setMessage('')}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSendMessage()
+                    }
+                  }}
                 />
-                <Button size="sm" onClick={() => setMessage('')}>
+                <Button size="sm" onClick={handleSendMessage}>
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
@@ -230,7 +308,7 @@ Building an AI-powered chatbot for customer service automation.
                   <CheckSquare className="w-5 h-5" />
                   Tasks
                 </CardTitle>
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" onClick={handleAddTask}>
                   <Plus className="w-4 h-4" />
                 </Button>
               </div>
@@ -243,7 +321,7 @@ Building an AI-powered chatbot for customer service automation.
                       type="checkbox"
                       checked={task.completed}
                       className="rounded"
-                      onChange={() => {}}
+                      onChange={() => handleTaskToggle(task.id)}
                     />
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm ${task.completed ? 'line-through text-muted-foreground' : ''}`}>

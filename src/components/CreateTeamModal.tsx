@@ -15,6 +15,7 @@ export function CreateTeamModal() {
   const [description, setDescription] = useState("")
   const [hackathon, setHackathon] = useState("")
   const [maxMembers, setMaxMembers] = useState("4")
+  const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
   const hackathons = [
@@ -24,14 +25,41 @@ export function CreateTeamModal() {
     "Health Innovation Challenge"
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Integrate with Supabase
+    
+    if (!teamName.trim() || !hackathon) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      })
+      return
+    }
+
+    setIsLoading(true)
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     console.log('Creating team:', { teamName, description, hackathon, maxMembers })
+    
     toast({
       title: "Team Created!",
       description: `${teamName} has been successfully created.`,
     })
+    
+    setOpen(false)
+    setIsLoading(false)
+    
+    // Reset form
+    setTeamName("")
+    setDescription("")
+    setHackathon("")
+    setMaxMembers("4")
+  }
+
+  const handleCancel = () => {
     setOpen(false)
     // Reset form
     setTeamName("")
@@ -61,6 +89,7 @@ export function CreateTeamModal() {
               onChange={(e) => setTeamName(e.target.value)}
               placeholder="Enter team name"
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -72,12 +101,18 @@ export function CreateTeamModal() {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe your team and project idea..."
               rows={3}
+              disabled={isLoading}
             />
           </div>
 
           <div>
             <Label htmlFor="hackathon">Select Hackathon *</Label>
-            <Select value={hackathon} onValueChange={setHackathon} required>
+            <Select 
+              value={hackathon} 
+              onValueChange={setHackathon} 
+              required
+              disabled={isLoading}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Choose a hackathon" />
               </SelectTrigger>
@@ -91,7 +126,11 @@ export function CreateTeamModal() {
 
           <div>
             <Label htmlFor="maxMembers">Maximum Members</Label>
-            <Select value={maxMembers} onValueChange={setMaxMembers}>
+            <Select 
+              value={maxMembers} 
+              onValueChange={setMaxMembers}
+              disabled={isLoading}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -105,11 +144,20 @@ export function CreateTeamModal() {
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={handleCancel}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
-            <Button type="submit" className="gradient-bg">
-              Create Team
+            <Button 
+              type="submit" 
+              className="gradient-bg"
+              disabled={isLoading}
+            >
+              {isLoading ? "Creating..." : "Create Team"}
             </Button>
           </div>
         </form>
