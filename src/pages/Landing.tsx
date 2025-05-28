@@ -1,9 +1,11 @@
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Code, Trophy, Users, Zap, Star, ArrowRight, CheckCircle, Github, Linkedin, Twitter, Play, Timer, Brain, Lightbulb, Target, Rocket, Award, Coffee, Clock, Phone, Mail, Heart } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { VideoModal } from "@/components/VideoModal"
@@ -123,7 +125,8 @@ export default function Landing() {
       email: "ravi@example.com",
       avatar: "R",
       role: "Full Stack Developer",
-      gradient: "from-purple-500 to-blue-500"
+      gradient: "from-purple-500 to-blue-500",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&h=150&fit=crop&crop=face"
     },
     {
       name: "Ravina", 
@@ -131,7 +134,8 @@ export default function Landing() {
       email: "ravina@example.com",
       avatar: "R",
       role: "UI/UX Designer",
-      gradient: "from-pink-500 to-purple-500"
+      gradient: "from-pink-500 to-purple-500",
+      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&crop=face"
     }
   ]
 
@@ -428,9 +432,13 @@ export default function Landing() {
             {builders.map((builder, index) => (
               <Card key={index} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border-white/20 hover:from-white/20 hover:to-white/10 transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
                 <CardContent className="p-8 text-center">
-                  <div className={`w-20 h-20 bg-gradient-to-br ${builder.gradient} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg text-white text-2xl font-bold`}>
-                    {builder.avatar}
-                  </div>
+                  <Avatar className="w-20 h-20 mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                    <AvatarImage src={builder.image} alt={builder.name} />
+                    <AvatarFallback className={`bg-gradient-to-br ${builder.gradient} text-white text-2xl font-bold`}>
+                      {builder.avatar}
+                    </AvatarFallback>
+                  </Avatar>
+                  
                   <h3 className="text-2xl font-bold text-white mb-2">{builder.name}</h3>
                   <p className="text-purple-300 mb-6 font-medium">{builder.role}</p>
                   
