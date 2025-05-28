@@ -1,11 +1,10 @@
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Code, Trophy, Users, Zap, Star, ArrowRight, CheckCircle, Github, Linkedin, Twitter, Play, Timer, Brain, Lightbulb, Target, Rocket, Award, Coffee, Clock } from "lucide-react"
+import { Code, Trophy, Users, Zap, Star, ArrowRight, CheckCircle, Github, Linkedin, Twitter, Play, Timer, Brain, Lightbulb, Target, Rocket, Award, Coffee, Clock, Phone, Mail, Heart } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { VideoModal } from "@/components/VideoModal"
 
@@ -117,6 +116,25 @@ export default function Landing() {
     }
   ]
 
+  const builders = [
+    {
+      name: "Ravi",
+      phone: "+91-XXXXXXXXXX",
+      email: "ravi@example.com",
+      avatar: "R",
+      role: "Full Stack Developer",
+      gradient: "from-purple-500 to-blue-500"
+    },
+    {
+      name: "Ravina", 
+      phone: "+91-XXXXXXXXXX",
+      email: "ravina@example.com",
+      avatar: "R",
+      role: "UI/UX Designer",
+      gradient: "from-pink-500 to-purple-500"
+    }
+  ]
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -151,6 +169,7 @@ export default function Landing() {
             <a href="#features" className="text-gray-300 hover:text-white transition-colors font-medium">Features</a>
             <a href="#hackathons" className="text-gray-300 hover:text-white transition-colors font-medium">Hackathons</a>
             <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors font-medium">Success Stories</a>
+            <a href="#builders" className="text-gray-300 hover:text-white transition-colors font-medium">Builders</a>
             <a href="#auth" className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all font-medium">
               Join Now
             </a>
@@ -166,23 +185,28 @@ export default function Landing() {
           </Badge>
           
           <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 leading-tight">
-            Code. Compete.
+            Build. Collaborate.
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent block">
-              Conquer.
+              Hack. 🚀
             </span>
           </h1>
           
           <p className="text-2xl text-gray-300 mb-4 max-w-3xl mx-auto font-light">
-            Transform your boldest ideas into reality in just 48 hours.
+            Your ultimate platform for organizing and joining virtual hackathons.
           </p>
           <p className="text-lg text-purple-300 mb-12 max-w-2xl mx-auto">
-            Join the world's most exciting hackathon platform where innovation meets opportunity, and dreams become startups.
+            Transform your boldest ideas into reality in just 48 hours. Join the world's most exciting hackathon platform where innovation meets opportunity.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             <a href="#auth">
               <Button size="lg" className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-10 py-4 text-lg rounded-full shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 transition-all">
-                Start Hacking Now <ArrowRight className="w-6 h-6 ml-3" />
+                Get Started <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </a>
+            <a href="#auth">
+              <Button size="lg" className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-10 py-4 text-lg rounded-full shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all">
+                Host Your Hackathon Now <Rocket className="w-6 h-6 ml-3" />
               </Button>
             </a>
             <VideoModal>
@@ -381,6 +405,61 @@ export default function Landing() {
                       <div className="text-gray-400">{testimonial.role}</div>
                       <div className="text-purple-300 text-sm">{testimonial.company}</div>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Builders Section */}
+      <section id="builders" className="px-6 py-20 bg-gradient-to-br from-black/40 to-purple-900/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Heart className="w-8 h-8 text-red-400 animate-pulse" />
+              <h2 className="text-5xl font-bold text-white">Made with ❤️ by</h2>
+            </div>
+            <p className="text-gray-300 text-xl">Meet the passionate builders behind HackHub</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-3xl mx-auto">
+            {builders.map((builder, index) => (
+              <Card key={index} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border-white/20 hover:from-white/20 hover:to-white/10 transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
+                <CardContent className="p-8 text-center">
+                  <div className={`w-20 h-20 bg-gradient-to-br ${builder.gradient} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg text-white text-2xl font-bold`}>
+                    {builder.avatar}
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{builder.name}</h3>
+                  <p className="text-purple-300 mb-6 font-medium">{builder.role}</p>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 justify-center text-gray-300 hover:text-white transition-colors group/contact">
+                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover/contact:bg-green-500/20 transition-colors">
+                        <Phone className="w-5 h-5" />
+                      </div>
+                      <span className="font-mono text-sm">{builder.phone}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-3 justify-center text-gray-300 hover:text-white transition-colors group/contact">
+                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover/contact:bg-blue-500/20 transition-colors">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <span className="font-mono text-sm">{builder.email}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-center gap-4 mt-8">
+                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-purple-500/20 hover:border-purple-500/50 transition-all">
+                      <Github className="w-4 h-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all">
+                      <Linkedin className="w-4 h-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all">
+                      <Twitter className="w-4 h-4" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
