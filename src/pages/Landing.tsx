@@ -124,7 +124,7 @@ export default function Landing() {
       phone: "+91-XXXXXXXXXX",
       email: "ravi@example.com",
       avatar: "R",
-      role: "Full Stack Developer",
+      role: "Software Developer",
       gradient: "from-purple-500 to-blue-500",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&h=150&fit=crop&crop=face"
     },
@@ -133,7 +133,7 @@ export default function Landing() {
       phone: "+91-XXXXXXXXXX",
       email: "ravina@example.com",
       avatar: "R",
-      role: "UI/UX Designer",
+      role: "Software Developer",
       gradient: "from-pink-500 to-purple-500",
       image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&crop=face"
     }
@@ -423,7 +423,7 @@ export default function Landing() {
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-6">
               <Heart className="w-8 h-8 text-red-400 animate-pulse" />
-              <h2 className="text-5xl font-bold text-white">Made with ❤️ by</h2>
+              <h2 className="text-5xl font-bold text-white">Made by ...</h2>
             </div>
             <p className="text-gray-300 text-xl">Meet the passionate builders behind HackHub</p>
           </div>
@@ -504,7 +504,7 @@ export default function Landing() {
           </div>
           
           <div className="pt-8 border-t border-white/10 text-center text-gray-400">
-            <p>&copy; 2025 HackHub. All rights reserved. Built with ❤️ for innovators worldwide.</p>
+            <p>&copy; 2025 HackHub. All rights reserved. Built by Ravi & Ravina .</p>
           </div>
         </div>
       </footer>
