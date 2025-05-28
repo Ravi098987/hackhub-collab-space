@@ -32,34 +32,130 @@ export class FileSystemManager {
         isOpen: true,
         children: [
           {
+            id: 'components',
+            name: 'components',
+            type: 'folder',
+            isOpen: false,
+            children: [
+              {
+                id: 'Button.jsx',
+                name: 'Button.jsx',
+                type: 'file',
+                content: `import React from 'react';
+
+const Button = ({ children, onClick, className = '' }) => {
+  return (
+    <button 
+      onClick={onClick}
+      className={\`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 \${className}\`}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;`
+              }
+            ]
+          },
+          {
             id: 'main.js',
             name: 'main.js',
             type: 'file',
-            content: `// Welcome to HackHub IDE
+            content: `// Welcome to HackHub Enhanced IDE
 console.log("Hello, World!");
 
 function greetTeam() {
   console.log("Let's build something amazing!");
 }
 
+// Example of modern JavaScript features
+const teamMembers = ['Alice', 'Bob', 'Charlie'];
+const greeting = teamMembers.map(name => \`Hello, \${name}!\`);
+
+console.log(greeting);
 greetTeam();`
           },
           {
-            id: 'utils.js',
-            name: 'utils.js',
+            id: 'styles.css',
+            name: 'styles.css',
             type: 'file',
-            content: `// Utility functions
-export function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
+            content: `/* HackHub Project Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }`
+          },
+          {
+            id: 'app.py',
+            name: 'app.py',
+            type: 'file',
+            content: `# HackHub Python Backend
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return jsonify({
+        'message': 'Welcome to HackHub API!',
+        'status': 'success'
+    })
+
+@app.route('/api/health')
+def health_check():
+    return jsonify({'status': 'healthy'})
+
+if __name__ == '__main__':
+    app.run(debug=True)`
+          }
+        ]
+      },
+      {
+        id: 'public',
+        name: 'public',
+        type: 'folder',
+        isOpen: false,
+        children: [
+          {
+            id: 'index.html',
+            name: 'index.html',
+            type: 'file',
+            content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackHub Project</title>
+    <link rel="stylesheet" href="../src/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to HackHub</h1>
+        <div class="card">
+            <h2>Your Hackathon Project</h2>
+            <p>Start building your amazing project here!</p>
+        </div>
+    </div>
+    <script src="../src/main.js"></script>
+</body>
+</html>`
           }
         ]
       },
@@ -67,18 +163,47 @@ export function debounce(func, wait) {
         id: 'README.md',
         name: 'README.md',
         type: 'file',
-        content: `# My Hackathon Project
+        content: `# HackHub Enhanced IDE Project
+
+## Features
+
+🗂️ **File Management System**
+- Tree-structured file explorer
+- Create, rename, delete files and folders
+- Support for multiple file types (.js, .py, .html, .css, .txt, etc.)
+
+🖥️ **Integrated Terminal**
+- Built-in terminal with basic shell commands
+- Interactive command execution
+- File system operations
+
+🧩 **Enhanced Features**
+- Full-screen coding mode (F11)
+- Auto-save to localStorage
+- Multi-file tabs with unsaved indicators
+- Code runner for JavaScript, HTML, CSS
+- Dark/Light theme toggle
 
 ## Getting Started
 
-This is your hackathon project workspace. Start coding!
+1. Use the file explorer to navigate your project
+2. Create new files and folders using the + buttons
+3. Open the terminal for command-line operations
+4. Run your code using the integrated code runner
+5. Toggle between light and dark themes
 
-## Features
-- Modern JavaScript
-- Team collaboration
-- Version control ready
+## Supported File Types
 
-Good luck with your hackathon!`
+- JavaScript (.js, .jsx)
+- TypeScript (.ts, .tsx)
+- Python (.py)
+- HTML (.html)
+- CSS (.css)
+- Markdown (.md)
+- JSON (.json)
+- Plain text (.txt)
+
+Happy coding! 🚀`
       }
     ];
   }

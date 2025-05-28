@@ -1,13 +1,14 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import Editor from '@monaco-editor/react';
 import { FileSystemManager, FileNode } from '@/utils/fileSystem';
 import { FileExplorer } from './FileExplorer';
 import { EditorTabs } from './EditorTabs';
-import { CodeRunner } from './CodeRunner';
+import { EnhancedCodeRunner } from './EnhancedCodeRunner';
+import { Terminal } from './Terminal';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Maximize, Minimize, Save } from "lucide-react";
+import { Maximize, Minimize, Save, Terminal as TerminalIcon, Sun, Moon } from "lucide-react";
 
 interface CodeEditorProps {
   value?: string;
@@ -26,6 +27,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [unsavedFiles, setUnsavedFiles] = useState<Set<string>>(new Set());
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showOutput, setShowOutput] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   // Initialize file system
   useEffect(() => {
@@ -96,7 +99,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       'md': 'markdown',
       'xml': 'xml',
       'yaml': 'yaml',
-      'yml': 'yaml'
+      'yml': 'yaml',
+      'txt': 'plaintext'
     };
     return languageMap[ext || ''] || 'plaintext';
   };
@@ -223,12 +227,23 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           <Button size="sm" variant="outline" onClick={() => setShowOutput(!showOutput)}>
             {showOutput ? 'Hide Output' : 'Show Output'}
           </Button>
+          <Button size="sm" variant="outline" onClick={() => setShowTerminal(!showTerminal)}>
+            <TerminalIcon className="w-4 h-4 mr-1" />
+            {showTerminal ? 'Hide Terminal' : 'Show Terminal'}
+          </Button>
           <Button size="sm" variant="outline" onClick={manualSave}>
             <Save className="w-4 h-4 mr-1" />
             Save All
           </Button>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={toggleTheme}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </Button>
           <Button
             size="sm"
             variant="outline"
@@ -257,7 +272,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           language={currentLanguage}
           value={activeFile?.content || externalValue || ''}
           onChange={handleEditorChange}
-          theme="vs-dark"
+          theme={theme === 'dark' ? 'vs-dark' : 'light'}
           options={{
             minimap: { enabled: !isFullScreen },
             fontSize: 14,
@@ -276,14 +291,21 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Output Panel */}
-      {showOutput && (
+      {showOutput && activeFile && (
         <div className="mt-4">
-          <CodeRunner 
-            code={activeFile?.content || externalValue || ''} 
-            language={currentLanguage} 
+          <EnhancedCodeRunner 
+            code={activeFile.content || ''} 
+            language={currentLanguage}
+            fileName={activeFile.name}
           />
         </div>
       )}
+
+      {/* Terminal Panel */}
+      <Terminal 
+        isVisible={showTerminal}
+        onClose={() => setShowTerminal(false)}
+      />
     </div>
   );
 
