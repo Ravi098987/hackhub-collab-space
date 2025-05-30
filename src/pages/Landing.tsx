@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Code, Trophy, Users, Zap, Star, ArrowRight, CheckCircle, Github, Linkedin, Twitter, Play, Timer, Brain, Lightbulb, Target, Rocket, Award, Coffee, Clock, Phone, Mail, Heart } from "lucide-react"
+import { Code, Trophy, Users, Zap, Star, ArrowRight, CheckCircle, Github, Linkedin, Twitter, Play, Timer, Brain, Lightbulb, Target, Rocket, Award, Coffee, Clock, Phone, Mail, Heart, Terminal, Monitor, Cpu, Wifi } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { VideoModal } from "@/components/VideoModal"
 
@@ -141,95 +141,141 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-4 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-8 -right-4 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-500"></div>
+        {/* Gradient Orbs */}
+        <div className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute -bottom-8 -right-4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-500"></div>
+        
+        {/* Matrix-style Grid */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="grid grid-cols-12 h-full">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="border-r border-purple-300/20"></div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Circuit Pattern */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 1000 1000">
+            <defs>
+              <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M10,10 L90,10 L90,50 L50,50 L50,90 L90,90" stroke="#8B5CF6" strokeWidth="2" fill="none" />
+                <circle cx="10" cy="10" r="3" fill="#8B5CF6" />
+                <circle cx="90" cy="10" r="3" fill="#8B5CF6" />
+                <circle cx="50" cy="50" r="3" fill="#8B5CF6" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#circuit)" />
+          </svg>
+        </div>
       </div>
 
-      {/* Floating Code Elements */}
+      {/* Enhanced Floating Code Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 text-purple-300/30 text-6xl font-mono animate-bounce">{'<>'}</div>
-        <div className="absolute top-40 right-32 text-cyan-300/30 text-4xl font-mono animate-bounce delay-300">{'{ }'}</div>
-        <div className="absolute bottom-32 left-32 text-pink-300/30 text-5xl font-mono animate-bounce delay-700">{'</>'}</div>
-        <div className="absolute bottom-20 right-20 text-blue-300/30 text-3xl font-mono animate-bounce delay-1000">{'[]'}</div>
+        <div className="absolute top-20 left-20 text-purple-300/40 text-8xl font-mono animate-bounce">{'<>'}</div>
+        <div className="absolute top-40 right-32 text-cyan-300/40 text-6xl font-mono animate-bounce delay-300">{'{ }'}</div>
+        <div className="absolute bottom-32 left-32 text-pink-300/40 text-7xl font-mono animate-bounce delay-700">{'</>'}</div>
+        <div className="absolute bottom-20 right-20 text-blue-300/40 text-5xl font-mono animate-bounce delay-1000">{'[]'}</div>
+        
+        {/* Floating Icons */}
+        <div className="absolute top-32 right-1/4 text-purple-400/30 animate-pulse delay-200">
+          <Terminal className="w-16 h-16" />
+        </div>
+        <div className="absolute bottom-40 left-1/4 text-cyan-400/30 animate-pulse delay-700">
+          <Monitor className="w-20 h-20" />
+        </div>
+        <div className="absolute top-1/2 right-32 text-pink-400/30 animate-pulse delay-1200">
+          <Cpu className="w-14 h-14" />
+        </div>
+        
+        {/* Binary Code Rain */}
+        <div className="absolute top-0 left-1/3 text-green-400/20 text-xs font-mono animate-pulse">
+          01010101<br/>11001100<br/>10101010<br/>00110011
+        </div>
+        <div className="absolute top-20 right-1/3 text-blue-400/20 text-xs font-mono animate-pulse delay-500">
+          01110111<br/>10011001<br/>11110000<br/>00001111
+        </div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-50 px-6 py-6">
+      {/* Professional Header */}
+      <header className="relative z-50 px-6 py-6 backdrop-blur-sm bg-black/10">
         <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25">
-              <Code className="w-7 h-7 text-white" />
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl shadow-purple-500/30">
+              <Code className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">HackHub</h1>
-              <p className="text-xs text-purple-300">Where Ideas Become Reality</p>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">HackHub</h1>
+              <p className="text-sm text-purple-300">Where Innovation Meets Excellence</p>
             </div>
           </div>
           
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors font-medium">Features</a>
-            <a href="#hackathons" className="text-gray-300 hover:text-white transition-colors font-medium">Hackathons</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors font-medium">Success Stories</a>
-            <a href="#builders" className="text-gray-300 hover:text-white transition-colors font-medium">Builders</a>
-            <a href="#auth" className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all font-medium">
-              Join Now
+          <div className="hidden md:flex items-center gap-10">
+            <a href="#features" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Features</a>
+            <a href="#hackathons" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Hackathons</a>
+            <a href="#testimonials" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Success Stories</a>
+            <a href="#builders" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Builders</a>
+            <a href="#auth">
+              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-full hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105 font-medium">
+                Join Revolution
+              </Button>
             </a>
           </div>
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative px-6 py-20 text-center">
-        <div className="max-w-6xl mx-auto">
-          <Badge className="mb-8 bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 border-purple-500/30 px-6 py-2 text-lg">
-            🏆 Join 50,000+ Developers Worldwide
+      {/* Enhanced Hero Section */}
+      <section className="relative px-6 py-32 text-center">
+        <div className="max-w-7xl mx-auto">
+          <Badge className="mb-10 bg-gradient-to-r from-purple-500/30 to-blue-500/30 text-purple-200 border-purple-400/40 px-8 py-3 text-lg backdrop-blur-sm hover:scale-105 transition-transform duration-300">
+            🏆 Join 50,000+ Elite Developers Worldwide
           </Badge>
           
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 leading-tight">
+          <h1 className="text-7xl md:text-9xl font-black text-white mb-12 leading-tight">
             Build. Collaborate.
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent block">
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent block animate-pulse">
               Hack. 🚀
             </span>
           </h1>
           
-          <p className="text-2xl text-gray-300 mb-4 max-w-3xl mx-auto font-light">
+          <p className="text-3xl text-gray-200 mb-6 max-w-4xl mx-auto font-light">
             Your ultimate platform for organizing and joining virtual hackathons.
           </p>
-          <p className="text-lg text-purple-300 mb-12 max-w-2xl mx-auto">
-            Transform your boldest ideas into reality in just 48 hours. Join the world's most exciting hackathon platform where innovation meets opportunity.
+          <p className="text-xl text-purple-300 mb-16 max-w-3xl mx-auto leading-relaxed">
+            Transform your boldest ideas into reality in just 48 hours. Join the world's most exciting hackathon platform where innovation meets unlimited opportunity.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center mb-20">
             <a href="#auth">
-              <Button size="lg" className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-10 py-4 text-lg rounded-full shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 transition-all">
-                Get Started <ArrowRight className="w-6 h-6 ml-3" />
+              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-12 py-6 text-xl rounded-full shadow-2xl shadow-purple-500/30 hover:shadow-3xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-110 font-semibold">
+                Get Started Free <ArrowRight className="w-7 h-7 ml-4" />
               </Button>
             </a>
             <a href="#auth">
-              <Button size="lg" className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-10 py-4 text-lg rounded-full shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all">
-                Host Your Hackathon Now <Rocket className="w-6 h-6 ml-3" />
+              <Button size="lg" className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-12 py-6 text-xl rounded-full shadow-2xl shadow-green-500/30 hover:shadow-3xl hover:shadow-green-500/40 transition-all duration-300 hover:scale-110 font-semibold">
+                Host Hackathon <Rocket className="w-7 h-7 ml-4" />
               </Button>
             </a>
             <VideoModal>
-              <Button size="lg" variant="outline" className="text-white border-white/50 hover:bg-white hover:text-slate-900 px-10 py-4 text-lg rounded-full backdrop-blur-sm bg-white/10">
-                <Play className="w-6 h-6 mr-3" />
-                Watch Success Stories
+              <Button size="lg" variant="outline" className="text-white border-white/60 hover:bg-white hover:text-slate-900 px-12 py-6 text-xl rounded-full backdrop-blur-sm bg-white/10 hover:scale-110 transition-all duration-300 font-semibold">
+                <Play className="w-7 h-7 mr-4" />
+                Watch Demo
               </Button>
             </VideoModal>
           </div>
 
           {/* Enhanced Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {hackathonStats.map((stat, index) => (
-              <div key={index} className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <div key={index} className="text-center p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 hover:from-white/20 hover:to-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   {stat.icon}
                 </div>
-                <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
-                <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
+                <div className="text-5xl font-black text-white mb-3">{stat.number}</div>
+                <div className="text-gray-300 text-lg font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -417,57 +463,62 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Meet the Builders Section */}
-      <section id="builders" className="px-6 py-20 bg-gradient-to-br from-black/40 to-purple-900/20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Heart className="w-8 h-8 text-red-400 animate-pulse" />
-              <h2 className="text-5xl font-bold text-white">Made by ...</h2>
+      {/* Enhanced Builders Section */}
+      <section id="builders" className="px-6 py-24 bg-gradient-to-br from-black/50 to-purple-900/30">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <Heart className="w-10 h-10 text-red-400 animate-pulse" />
+              <h2 className="text-6xl font-black bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">Made with Passion</h2>
             </div>
-            <p className="text-gray-300 text-xl">Meet the passionate builders behind HackHub</p>
+            <p className="text-gray-300 text-2xl">Meet the visionary builders behind HackHub</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 max-w-4xl mx-auto">
             {builders.map((builder, index) => (
-              <Card key={index} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border-white/20 hover:from-white/20 hover:to-white/10 transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
-                <CardContent className="p-8 text-center">
-                  <Avatar className="w-20 h-20 mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <AvatarImage src={builder.image} alt={builder.name} />
-                    <AvatarFallback className={`bg-gradient-to-br ${builder.gradient} text-white text-2xl font-bold`}>
-                      {builder.avatar}
-                    </AvatarFallback>
-                  </Avatar>
+              <Card key={index} className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border-white/30 hover:from-white/25 hover:to-white/10 transition-all duration-500 group hover:scale-110 hover:shadow-3xl hover:shadow-purple-500/30 rounded-3xl overflow-hidden">
+                <CardContent className="p-12 text-center relative">
+                  {/* Decorative background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-2">{builder.name}</h3>
-                  <p className="text-purple-300 mb-6 font-medium">{builder.role}</p>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 justify-center text-gray-300 hover:text-white transition-colors group/contact">
-                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover/contact:bg-green-500/20 transition-colors">
-                        <Phone className="w-5 h-5" />
+                  <div className="relative z-10">
+                    <Avatar className="w-32 h-32 mx-auto mb-8 group-hover:scale-110 transition-transform duration-500 shadow-2xl border-4 border-white/20">
+                      <AvatarImage src={builder.image} alt={builder.name} />
+                      <AvatarFallback className={`bg-gradient-to-br ${builder.gradient} text-white text-4xl font-black`}>
+                        {builder.avatar}
+                      </AvatarFallback>
+                    </Avatar>
+                    
+                    <h3 className="text-4xl font-black text-white mb-3">{builder.name}</h3>
+                    <p className="text-purple-300 mb-10 font-semibold text-xl">{builder.role}</p>
+                    
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-4 justify-center text-gray-300 hover:text-white transition-colors group/contact p-4 rounded-2xl hover:bg-white/10">
+                        <div className="w-14 h-14 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center group-hover/contact:from-green-500/40 group-hover/contact:to-emerald-500/40 transition-all">
+                          <Phone className="w-7 h-7" />
+                        </div>
+                        <span className="font-mono text-lg">{builder.phone}</span>
                       </div>
-                      <span className="font-mono text-sm">{builder.phone}</span>
+                      
+                      <div className="flex items-center gap-4 justify-center text-gray-300 hover:text-white transition-colors group/contact p-4 rounded-2xl hover:bg-white/10">
+                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center group-hover/contact:from-blue-500/40 group-hover/contact:to-cyan-500/40 transition-all">
+                          <Mail className="w-7 h-7" />
+                        </div>
+                        <span className="font-mono text-lg">{builder.email}</span>
+                      </div>
                     </div>
                     
-                    <div className="flex items-center gap-3 justify-center text-gray-300 hover:text-white transition-colors group/contact">
-                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover/contact:bg-blue-500/20 transition-colors">
-                        <Mail className="w-5 h-5" />
-                      </div>
-                      <span className="font-mono text-sm">{builder.email}</span>
+                    <div className="flex justify-center gap-6 mt-12">
+                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-purple-500/30 hover:border-purple-400/60 transition-all hover:scale-110">
+                        <Github className="w-8 h-8" />
+                      </Button>
+                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-blue-500/30 hover:border-blue-400/60 transition-all hover:scale-110">
+                        <Linkedin className="w-8 h-8" />
+                      </Button>
+                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-cyan-500/30 hover:border-cyan-400/60 transition-all hover:scale-110">
+                        <Twitter className="w-8 h-8" />
+                      </Button>
                     </div>
-                  </div>
-                  
-                  <div className="flex justify-center gap-4 mt-8">
-                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-purple-500/20 hover:border-purple-500/50 transition-all">
-                      <Github className="w-4 h-4" />
-                    </Button>
-                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all">
-                      <Linkedin className="w-4 h-4" />
-                    </Button>
-                    <Button size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full border-white/20 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all">
-                      <Twitter className="w-4 h-4" />
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -476,35 +527,35 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 py-16 border-t border-white/10 bg-black/30">
+      {/* Enhanced Footer */}
+      <footer className="px-6 py-20 border-t border-white/20 bg-gradient-to-br from-black/60 to-purple-900/40 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between mb-12">
-            <div className="flex items-center gap-4 mb-6 md:mb-0">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+          <div className="flex flex-col md:flex-row items-center justify-between mb-16">
+            <div className="flex items-center gap-6 mb-8 md:mb-0">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl">
+                <Code className="w-8 h-8 text-white" />
               </div>
               <div>
-                <span className="text-white font-bold text-xl">HackHub</span>
-                <p className="text-purple-300 text-sm">Innovating the Future</p>
+                <span className="text-white font-black text-3xl bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">HackHub</span>
+                <p className="text-purple-300 text-lg font-medium">Innovating the Future</p>
               </div>
             </div>
             
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
-                <Github className="w-6 h-6" />
+            <div className="flex items-center gap-8">
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 p-4 hover:bg-white/10 rounded-2xl hover:scale-110">
+                <Github className="w-8 h-8" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
-                <Twitter className="w-6 h-6" />
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 p-4 hover:bg-white/10 rounded-2xl hover:scale-110">
+                <Twitter className="w-8 h-8" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
-                <Linkedin className="w-6 h-6" />
+              <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 p-4 hover:bg-white/10 rounded-2xl hover:scale-110">
+                <Linkedin className="w-8 h-8" />
               </a>
             </div>
           </div>
           
-          <div className="pt-8 border-t border-white/10 text-center text-gray-400">
-            <p>&copy; 2025 HackHub. All rights reserved. Built by Ravi & Ravina .</p>
+          <div className="pt-10 border-t border-white/20 text-center text-gray-400 text-lg">
+            <p>&copy; 2025 HackHub. All rights reserved. Built with ❤️ by <span className="text-purple-300 font-semibold">Ravi & Ravina</span></p>
           </div>
         </div>
       </footer>
