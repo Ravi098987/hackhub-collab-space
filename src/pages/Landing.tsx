@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -125,7 +124,6 @@ export default function Landing() {
       email: "ravi@example.com",
       avatar: "R",
       role: "Software Developer",
-      gradient: "from-purple-500 to-blue-500",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&h=150&fit=crop&crop=face"
     },
     {
@@ -134,7 +132,6 @@ export default function Landing() {
       email: "ravina@example.com",
       avatar: "R",
       role: "Software Developer",
-      gradient: "from-pink-500 to-purple-500",
       image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&crop=face"
     }
   ]
@@ -439,7 +436,7 @@ export default function Landing() {
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border-white/20 hover:from-white/20 hover:to-white/10 transition-all duration-300">
-                <CardContent className="p-8">
+                <CardContent className="p-8 text-center">
                   <div className="flex items-center gap-1 mb-6">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -463,62 +460,50 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Enhanced Builders Section */}
-      <section id="builders" className="px-6 py-24 bg-gradient-to-br from-black/50 to-purple-900/30">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-20">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <Heart className="w-10 h-10 text-red-400 animate-pulse" />
-              <h2 className="text-6xl font-black bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">Made with Passion</h2>
-            </div>
-            <p className="text-gray-300 text-2xl">Meet the visionary builders behind HackHub</p>
+      {/* Professional Developers Section */}
+      <section id="builders" className="px-6 py-20 bg-gradient-to-br from-slate-900/80 to-slate-800/80 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4">Development Team</h2>
+            <p className="text-gray-400 text-lg">Meet the professionals behind HackHub</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-16 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
             {builders.map((builder, index) => (
-              <Card key={index} className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border-white/30 hover:from-white/25 hover:to-white/10 transition-all duration-500 group hover:scale-110 hover:shadow-3xl hover:shadow-purple-500/30 rounded-3xl overflow-hidden">
-                <CardContent className="p-12 text-center relative">
-                  {/* Decorative background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Card key={index} className="bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all duration-300">
+                <CardContent className="p-8 text-center">
+                  <Avatar className="w-24 h-24 mx-auto mb-6 border-2 border-white/20">
+                    <AvatarImage src={builder.image} alt={builder.name} />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white text-2xl font-bold">
+                      {builder.avatar}
+                    </AvatarFallback>
+                  </Avatar>
                   
-                  <div className="relative z-10">
-                    <Avatar className="w-32 h-32 mx-auto mb-8 group-hover:scale-110 transition-transform duration-500 shadow-2xl border-4 border-white/20">
-                      <AvatarImage src={builder.image} alt={builder.name} />
-                      <AvatarFallback className={`bg-gradient-to-br ${builder.gradient} text-white text-4xl font-black`}>
-                        {builder.avatar}
-                      </AvatarFallback>
-                    </Avatar>
-                    
-                    <h3 className="text-4xl font-black text-white mb-3">{builder.name}</h3>
-                    <p className="text-purple-300 mb-10 font-semibold text-xl">{builder.role}</p>
-                    
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4 justify-center text-gray-300 hover:text-white transition-colors group/contact p-4 rounded-2xl hover:bg-white/10">
-                        <div className="w-14 h-14 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center group-hover/contact:from-green-500/40 group-hover/contact:to-emerald-500/40 transition-all">
-                          <Phone className="w-7 h-7" />
-                        </div>
-                        <span className="font-mono text-lg">{builder.phone}</span>
-                      </div>
-                      
-                      <div className="flex items-center gap-4 justify-center text-gray-300 hover:text-white transition-colors group/contact p-4 rounded-2xl hover:bg-white/10">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center group-hover/contact:from-blue-500/40 group-hover/contact:to-cyan-500/40 transition-all">
-                          <Mail className="w-7 h-7" />
-                        </div>
-                        <span className="font-mono text-lg">{builder.email}</span>
-                      </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{builder.name}</h3>
+                  <p className="text-purple-300 mb-6 font-medium">{builder.role}</p>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
+                      <Phone className="w-5 h-5" />
+                      <span className="font-mono text-sm">{builder.phone}</span>
                     </div>
                     
-                    <div className="flex justify-center gap-6 mt-12">
-                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-purple-500/30 hover:border-purple-400/60 transition-all hover:scale-110">
-                        <Github className="w-8 h-8" />
-                      </Button>
-                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-blue-500/30 hover:border-blue-400/60 transition-all hover:scale-110">
-                        <Linkedin className="w-8 h-8" />
-                      </Button>
-                      <Button size="lg" variant="outline" className="w-16 h-16 p-0 rounded-2xl border-white/30 hover:bg-cyan-500/30 hover:border-cyan-400/60 transition-all hover:scale-110">
-                        <Twitter className="w-8 h-8" />
-                      </Button>
+                    <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
+                      <Mail className="w-5 h-5" />
+                      <span className="font-mono text-sm">{builder.email}</span>
                     </div>
+                  </div>
+                  
+                  <div className="flex justify-center gap-4 mt-8">
+                    <Button size="sm" variant="outline" className="border-white/30 hover:bg-white/10">
+                      <Github className="w-4 h-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" className="border-white/30 hover:bg-white/10">
+                      <Linkedin className="w-4 h-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" className="border-white/30 hover:bg-white/10">
+                      <Twitter className="w-4 h-4" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
