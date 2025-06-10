@@ -14,6 +14,7 @@ import Workspace from "./pages/Workspace";
 import Hackathons from "./pages/Hackathons";
 import Submit from "./pages/Submit";
 import Profile from "./pages/Profile";
+import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 
@@ -67,6 +68,7 @@ const App = () => {
                     <Route path="/hackathons" element={<Hackathons />} />
                     <Route path="/submit" element={<Submit />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/presentation" element={<Presentation />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </div>
