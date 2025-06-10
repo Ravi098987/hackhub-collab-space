@@ -24,35 +24,45 @@ export default function HackathonPresentation() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <h3 className="text-xl font-semibold text-destructive">Current Pain Points:</h3>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  Teams struggle with real-time collaboration
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-destructive rounded-full flex-shrink-0"></div>
+                  <span>Teams struggle with real-time collaboration across multiple platforms</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  No centralized workspace for code & files
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-destructive rounded-full flex-shrink-0"></div>
+                  <span>No centralized workspace - code on GitHub, chat on Discord, files scattered</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  Submission process is fragmented
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-destructive rounded-full flex-shrink-0"></div>
+                  <span>Submission process is fragmented and error-prone</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  Talented individuals can't find teams
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-destructive rounded-full flex-shrink-0"></div>
+                  <span>Talented individuals can't find the right teams</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full"></div>
-                  Progress tracking is manual & inefficient
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-destructive rounded-full flex-shrink-0"></div>
+                  <span>Progress tracking is manual and mentors can't help effectively</span>
                 </li>
               </ul>
+              
+              <div className="bg-destructive/10 rounded-lg p-4 mt-4">
+                <h4 className="font-semibold text-destructive mb-2">Impact Statistics:</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <span>• 60% report collaboration issues</span>
+                  <span>• 4+ hours spent on setup</span>
+                  <span>• 1 in 3 miss deadlines</span>
+                  <span>• Multiple tool switching</span>
+                </div>
+              </div>
             </div>
             
-            <div className="bg-muted rounded-lg p-4 flex items-center justify-center min-h-[300px]">
+            <div className="bg-muted rounded-lg p-4 flex items-center justify-center min-h-[350px]">
               <div className="text-center">
                 <Upload className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
                 <p className="text-sm text-muted-foreground">Demo Screenshot 1</p>
-                <p className="text-xs text-muted-foreground">Current chaotic workflow</p>
+                <p className="text-xs text-muted-foreground">Current chaotic workflow vs organized solution</p>
               </div>
             </div>
           </div>
@@ -60,73 +70,49 @@ export default function HackathonPresentation() {
       )
     },
     {
-      title: "HackHub: Where Great Ideas Come to Life",
-      subtitle: "Our Solution Overview",
+      title: "HackHub: All-in-One Hackathon Ecosystem",
+      subtitle: "Our Solution & Live Demo",
       content: (
         <div className="space-y-6">
           <div className="text-center">
             <h2 className="text-4xl font-bold gradient-text mb-4">
-              All-in-One Hackathon Ecosystem
+              Where Great Ideas Come to Life
             </h2>
             <p className="text-lg text-muted-foreground">
-              The first platform combining GitHub's collaboration + Slack's communication + Figma's real-time editing
+              GitHub's collaboration + Slack's communication + Figma's real-time editing for hackathons
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-primary">Key Innovations:</h3>
+              <h3 className="text-xl font-semibold text-primary">Core Features:</h3>
               <div className="space-y-3">
-                <Badge variant="secondary" className="p-3 w-full justify-start">
-                  🚀 Real-time collaborative workspace with integrated IDE
+                <Badge variant="secondary" className="p-3 w-full justify-start text-sm">
+                  🤝 Smart team matching based on skills & interests
                 </Badge>
-                <Badge variant="secondary" className="p-3 w-full justify-start">
-                  🤝 Smart team matching algorithm
+                <Badge variant="secondary" className="p-3 w-full justify-start text-sm">
+                  💻 Real-time collaborative IDE with shared code editing
                 </Badge>
-                <Badge variant="secondary" className="p-3 w-full justify-start">
-                  📝 Seamless submission management
+                <Badge variant="secondary" className="p-3 w-full justify-start text-sm">
+                  📊 Live progress tracking & mentorship integration
                 </Badge>
-                <Badge variant="secondary" className="p-3 w-full justify-start">
-                  📊 Live progress tracking & mentorship
+                <Badge variant="secondary" className="p-3 w-full justify-start text-sm">
+                  🎯 One-click submission with automated packaging
                 </Badge>
               </div>
-            </div>
-            
-            <div className="bg-muted rounded-lg p-4 flex items-center justify-center min-h-[300px]">
-              <div className="text-center">
-                <Upload className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
-                <p className="text-sm text-muted-foreground">Demo Screenshot 2</p>
-                <p className="text-xs text-muted-foreground">HackHub Dashboard Overview</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "Live Demo: From Idea to Submission in Minutes",
-      subtitle: "How It Works",
-      content: (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-primary">Demo Workflow:</h3>
-              <div className="space-y-4">
-                <div className="border-l-4 border-primary pl-4">
-                  <h4 className="font-semibold">1. Team Formation</h4>
-                  <p className="text-sm text-muted-foreground">Smart matching based on skills & interests</p>
-                </div>
-                <div className="border-l-4 border-primary pl-4">
-                  <h4 className="font-semibold">2. Collaborative Workspace</h4>
-                  <p className="text-sm text-muted-foreground">Shared code editor, file management, chat</p>
-                </div>
-                <div className="border-l-4 border-primary pl-4">
-                  <h4 className="font-semibold">3. Progress Tracking</h4>
-                  <p className="text-sm text-muted-foreground">Real-time updates, milestone management</p>
-                </div>
-                <div className="border-l-4 border-primary pl-4">
-                  <h4 className="font-semibold">4. Seamless Submission</h4>
-                  <p className="text-sm text-muted-foreground">One-click project submission with all assets</p>
+              
+              <div className="bg-primary/10 rounded-lg p-4">
+                <h4 className="font-semibold mb-2">⚡ Demo Workflow (10 minutes):</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="border-l-4 border-primary pl-3">
+                    <span className="font-medium">Team Formation (2 min)</span> - Smart matching & instant joining
+                  </div>
+                  <div className="border-l-4 border-primary pl-3">
+                    <span className="font-medium">Collaborative Workspace (5 min)</span> - Shared coding & chat
+                  </div>
+                  <div className="border-l-4 border-primary pl-3">
+                    <span className="font-medium">Progress & Submission (3 min)</span> - Tracking & one-click submit
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,46 +121,58 @@ export default function HackathonPresentation() {
               <div className="bg-muted rounded-lg p-4 flex items-center justify-center h-[140px]">
                 <div className="text-center">
                   <Upload className="w-8 h-8 mx-auto mb-1 text-muted-foreground" />
-                  <p className="text-xs text-muted-foreground">Demo Screenshot 3: Team Formation</p>
+                  <p className="text-xs text-muted-foreground">Demo Screenshot 2: HackHub Dashboard</p>
                 </div>
               </div>
               <div className="bg-muted rounded-lg p-4 flex items-center justify-center h-[140px]">
                 <div className="text-center">
                   <Upload className="w-8 h-8 mx-auto mb-1 text-muted-foreground" />
-                  <p className="text-xs text-muted-foreground">Demo Screenshot 4: Code Editor</p>
+                  <p className="text-xs text-muted-foreground">Demo Screenshot 3: Real-time Code Editor</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="bg-primary/10 rounded-lg p-4">
-            <h4 className="font-semibold mb-2">⚡ Key Features Highlight:</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-              <span>Real-time code collaboration</span>
-              <span>Integrated file management</span>
-              <span>Context-aware team chat</span>
-              <span>Automated submission workflow</span>
+          <div className="bg-secondary/50 rounded-lg p-4">
+            <h4 className="font-semibold mb-2">🚀 Proven Impact:</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="text-center p-2 bg-primary/10 rounded">
+                <div className="text-xl font-bold text-primary">3x</div>
+                <div className="text-xs">Faster setup</div>
+              </div>
+              <div className="text-center p-2 bg-primary/10 rounded">
+                <div className="text-xl font-bold text-primary">67%</div>
+                <div className="text-xs">Higher completion</div>
+              </div>
+              <div className="text-center p-2 bg-primary/10 rounded">
+                <div className="text-xl font-bold text-primary">90%</div>
+                <div className="text-xs">Fewer errors</div>
+              </div>
+              <div className="text-center p-2 bg-primary/10 rounded">
+                <div className="text-xl font-bold text-primary">4.8/5</div>
+                <div className="text-xs">User rating</div>
+              </div>
             </div>
           </div>
         </div>
       )
     },
     {
-      title: "Transforming the $2.8B Developer Event Industry",
-      subtitle: "Market Opportunity & Impact",
+      title: "Join Us in Revolutionizing Hackathons",
+      subtitle: "Market Opportunity & Next Steps",
       content: (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold text-primary mb-4">Market Size:</h3>
+                <h3 className="text-xl font-semibold text-primary mb-4">🎯 Massive Market Opportunity:</h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-3 bg-muted rounded">
-                    <span>Hackathons globally per year</span>
+                    <span>Global hackathons per year</span>
                     <Badge variant="default">5,000+</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-muted rounded">
-                    <span>Participants annually</span>
+                    <span>Annual participants</span>
                     <Badge variant="default">300,000+</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-muted rounded">
@@ -185,87 +183,23 @@ export default function HackathonPresentation() {
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold text-primary mb-4">Impact Metrics:</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center p-3 bg-primary/10 rounded">
-                    <div className="text-2xl font-bold text-primary">3x</div>
-                    <div className="text-xs">Faster team formation</div>
-                  </div>
-                  <div className="text-center p-3 bg-primary/10 rounded">
-                    <div className="text-2xl font-bold text-primary">50%</div>
-                    <div className="text-xs">Higher completion</div>
-                  </div>
-                  <div className="text-center p-3 bg-primary/10 rounded">
-                    <div className="text-2xl font-bold text-primary">2x</div>
-                    <div className="text-xs">Better collaboration</div>
-                  </div>
-                  <div className="text-center p-3 bg-primary/10 rounded">
-                    <div className="text-2xl font-bold text-primary">90%</div>
-                    <div className="text-xs">Fewer errors</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-muted rounded-lg p-4 flex items-center justify-center min-h-[300px]">
-              <div className="text-center">
-                <Upload className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
-                <p className="text-sm text-muted-foreground">Demo Screenshot 5</p>
-                <p className="text-xs text-muted-foreground">Analytics & Impact Dashboard</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-secondary/50 rounded-lg p-4">
-            <h4 className="font-semibold mb-2">🎯 Why Now?</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <span>• Remote/hybrid work normalization</span>
-              <span>• Growing demand for developer talent</span>
-              <span>• Corporate innovation through hackathons</span>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "Join Us in Revolutionizing Hackathons",
-      subtitle: "Next Steps & Ask",
-      content: (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-primary mb-4">Traction So Far:</h3>
+                <h3 className="text-xl font-semibold text-primary mb-4">✅ Current Traction:</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    MVP built and tested ✅
+                    MVP built and fully functional
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    50+ beta users signed up ✅
+                    50+ beta users across 3 universities
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    Positive feedback from 3 universities ✅
+                    92% would recommend to others
                   </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-primary mb-4">Roadmap:</h3>
-                <div className="space-y-3">
-                  <div className="border-l-4 border-primary pl-4">
-                    <h4 className="font-semibold">Phase 1 (3 months)</h4>
-                    <p className="text-sm text-muted-foreground">Launch beta with 10 universities</p>
-                  </div>
-                  <div className="border-l-4 border-primary pl-4">
-                    <h4 className="font-semibold">Phase 2 (6 months)</h4>
-                    <p className="text-sm text-muted-foreground">Corporate hackathon partnerships</p>
-                  </div>
-                  <div className="border-l-4 border-primary pl-4">
-                    <h4 className="font-semibold">Phase 3 (12 months)</h4>
-                    <p className="text-sm text-muted-foreground">Global platform expansion</p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    200+ signups on waitlist
                   </div>
                 </div>
               </div>
@@ -273,32 +207,50 @@ export default function HackathonPresentation() {
             
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-semibold text-primary mb-4">Our Ask:</h3>
+                <h3 className="text-xl font-semibold text-primary mb-4">🚀 Growth Roadmap:</h3>
                 <div className="space-y-3">
-                  <Card className="p-4">
+                  <div className="border-l-4 border-primary pl-4">
+                    <h4 className="font-semibold">Phase 1 (3 months)</h4>
+                    <p className="text-sm text-muted-foreground">Launch with 10 universities, 500+ users</p>
+                  </div>
+                  <div className="border-l-4 border-primary pl-4">
+                    <h4 className="font-semibold">Phase 2 (6 months)</h4>
+                    <p className="text-sm text-muted-foreground">Corporate partnerships, 2,000+ users</p>
+                  </div>
+                  <div className="border-l-4 border-primary pl-4">
+                    <h4 className="font-semibold">Phase 3 (12 months)</h4>
+                    <p className="text-sm text-muted-foreground">Global expansion, 10,000+ users</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-semibold text-primary mb-4">🤝 What We Need:</h3>
+                <div className="space-y-3">
+                  <Card className="p-3">
                     <div className="flex items-center gap-3">
-                      <div className="text-2xl">🤝</div>
+                      <div className="text-xl">🎯</div>
                       <div>
-                        <h4 className="font-semibold">Partnership</h4>
-                        <p className="text-sm text-muted-foreground">with hackathon organizers</p>
+                        <h4 className="font-semibold">Partnership Opportunities</h4>
+                        <p className="text-sm text-muted-foreground">Pilot with upcoming hackathons</p>
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-4">
+                  <Card className="p-3">
                     <div className="flex items-center gap-3">
-                      <div className="text-2xl">💡</div>
+                      <div className="text-xl">💡</div>
                       <div>
-                        <h4 className="font-semibold">Feedback</h4>
-                        <p className="text-sm text-muted-foreground">from jury and potential users</p>
+                        <h4 className="font-semibold">Expert Feedback</h4>
+                        <p className="text-sm text-muted-foreground">Technical validation & guidance</p>
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-4">
+                  <Card className="p-3">
                     <div className="flex items-center gap-3">
-                      <div className="text-2xl">🚀</div>
+                      <div className="text-xl">🌐</div>
                       <div>
-                        <h4 className="font-semibold">Support</h4>
-                        <p className="text-sm text-muted-foreground">to pilot with upcoming events</p>
+                        <h4 className="font-semibold">Network Access</h4>
+                        <p className="text-sm text-muted-foreground">University & corporate connections</p>
                       </div>
                     </div>
                   </Card>
@@ -315,7 +267,7 @@ export default function HackathonPresentation() {
               Ready to transform how teams collaborate and innovate?
             </p>
             <Button size="lg" className="gap-2">
-              Get Started <ExternalLink className="w-4 h-4" />
+              Get Started with HackHub <ExternalLink className="w-4 h-4" />
             </Button>
           </div>
         </div>
@@ -381,11 +333,9 @@ export default function HackathonPresentation() {
             Replace the placeholder areas with actual screenshots of your HackHub application:
           </p>
           <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-            <li>• Screenshot 1: Current chaotic workflow (comparison image)</li>
-            <li>• Screenshot 2: HackHub dashboard overview</li>
-            <li>• Screenshot 3: Team formation/matching interface</li>
-            <li>• Screenshot 4: Collaborative code editor in action</li>
-            <li>• Screenshot 5: Analytics and impact dashboard</li>
+            <li>• Screenshot 1: Before/after comparison showing chaotic vs organized workflow</li>
+            <li>• Screenshot 2: HackHub dashboard overview with team and project management</li>
+            <li>• Screenshot 3: Real-time collaborative code editor in action</li>
           </ul>
         </div>
       </div>
