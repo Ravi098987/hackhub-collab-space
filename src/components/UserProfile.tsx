@@ -8,20 +8,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Github, Twitter, Mail, Edit, Save, X } from "lucide-react"
+import { Github, Twitter, Mail, Edit, Save, X, Phone } from "lucide-react"
 import { useAuth } from "@/hooks/useAuth"
 import { supabase } from "@/integrations/supabase/client"
 import { useToast } from "@/hooks/use-toast"
 
 interface Profile {
   id: string
+  user_id: string
   display_name: string | null
   email: string | null
-  avatar_url: string | null
-  bio: string | null
-  github_username: string | null
-  twitter_username: string | null
+  phone: string | null
   role: string | null
+  created_at: string | null
+  updated_at: string | null
 }
 
 export function UserProfile() {
@@ -29,9 +29,7 @@ export function UserProfile() {
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
     display_name: '',
-    bio: '',
-    github_username: '',
-    twitter_username: '',
+    phone: '',
   })
   const { user, updateProfile } = useAuth()
   const { toast } = useToast()
@@ -59,15 +57,29 @@ export function UserProfile() {
     setProfile(data)
     setFormData({
       display_name: data.display_name || '',
-      bio: data.bio || '',
-      github_username: data.github_username || '',
-      twitter_username: data.twitter_username || '',
+      phone: data.phone || '',
     })
   }
 
   const handleSave = async () => {
-    const { error } = await updateProfile(formData)
-    if (!error) {
+    if (!user) return
+    
+    const { error } = await supabase
+      .from('profiles')
+      .update(formData)
+      .eq('user_id', user.id)
+    
+    if (error) {
+      toast({
+        title: "Error updating profile",
+        description: error.message,
+        variant: "destructive",
+      })
+    } else {
+      toast({
+        title: "Profile updated",
+        description: "Your profile has been successfully updated.",
+      })
       setIsEditing(false)
       fetchProfile()
     }
@@ -77,14 +89,16 @@ export function UserProfile() {
     setIsEditing(false)
     setFormData({
       display_name: profile?.display_name || '',
-      bio: profile?.bio || '',
-      github_username: profile?.github_username || '',
-      twitter_username: profile?.twitter_username || '',
+      phone: profile?.phone || '',
     })
   }
 
   if (!profile) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+      </div>
+    )
   }
 
   return (
@@ -114,7 +128,7 @@ export function UserProfile() {
       <CardContent className="space-y-6">
         <div className="flex items-center gap-4">
           <Avatar className="w-20 h-20">
-            <AvatarImage src={profile.avatar_url || undefined} />
+            <AvatarImage src={user?.user_metadata?.avatar_url} />
             <AvatarFallback className="text-xl">
               {profile.display_name?.[0] || profile.email?.[0] || 'U'}
             </AvatarFallback>
@@ -151,59 +165,30 @@ export function UserProfile() {
           </div>
 
           <div>
-            <Label htmlFor="bio">Bio</Label>
+            <Label htmlFor="phone">Phone Number</Label>
             {isEditing ? (
-              <Textarea
-                id="bio"
-                value={formData.bio}
-                onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
+              <Input
+                id="phone"
+                value={formData.phone}
+                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                 className="mt-1"
-                rows={3}
+                placeholder="+1 (555) 123-4567"
               />
             ) : (
-              <p className="mt-1 text-sm">{profile.bio || 'No bio yet'}</p>
+              <div className="mt-1 flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                <span className="text-sm">
+                  {profile.phone || 'Not set'}
+                </span>
+              </div>
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="github_username">GitHub Username</Label>
-              {isEditing ? (
-                <Input
-                  id="github_username"
-                  value={formData.github_username}
-                  onChange={(e) => setFormData(prev => ({ ...prev, github_username: e.target.value }))}
-                  className="mt-1"
-                  placeholder="username"
-                />
-              ) : (
-                <div className="mt-1 flex items-center gap-2">
-                  <Github className="w-4 h-4" />
-                  <span className="text-sm">
-                    {profile.github_username || 'Not connected'}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            <div>
-              <Label htmlFor="twitter_username">Twitter Username</Label>
-              {isEditing ? (
-                <Input
-                  id="twitter_username"
-                  value={formData.twitter_username}
-                  onChange={(e) => setFormData(prev => ({ ...prev, twitter_username: e.target.value }))}
-                  className="mt-1"
-                  placeholder="username"
-                />
-              ) : (
-                <div className="mt-1 flex items-center gap-2">
-                  <Twitter className="w-4 h-4" />
-                  <span className="text-sm">
-                    {profile.twitter_username || 'Not connected'}
-                  </span>
-                </div>
-              )}
+          <div className="pt-4">
+            <Label>Account Information</Label>
+            <div className="mt-2 space-y-2 text-sm text-muted-foreground">
+              <p>Member since: {new Date(profile.created_at || '').toLocaleDateString()}</p>
+              <p>Last updated: {new Date(profile.updated_at || '').toLocaleDateString()}</p>
             </div>
           </div>
         </div>
