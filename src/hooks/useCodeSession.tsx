@@ -3,36 +3,17 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { Database } from '@/integrations/supabase/types';
 
-export interface CodeSession {
-  id: string;
-  name: string;
-  description: string | null;
-  language: string;
-  code: string;
-  owner_id: string;
-  team_id: string | null;
-  is_public: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface CodeExecution {
-  id: string;
-  session_id: string;
-  user_id: string;
-  code: string;
-  language: string;
-  output: string | null;
-  error_message: string | null;
-  execution_time: number | null;
-  created_at: string;
-}
+export type CodeSession = Database['public']['Tables']['code_sessions']['Row'];
+export type CodeExecution = Database['public']['Tables']['code_executions']['Row'];
+export type CodeSessionParticipant = Database['public']['Tables']['code_session_participants']['Row'];
 
 export const useCodeSession = (sessionId: string | null) => {
   const [session, setSession] = useState<CodeSession | null>(null);
   const [sessions, setSessions] = useState<CodeSession[]>([]);
   const [executions, setExecutions] = useState<CodeExecution[]>([]);
+  const [participants, setParticipants] = useState<CodeSessionParticipant[]>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
@@ -46,7 +27,8 @@ export const useCodeSession = (sessionId: string | null) => {
       const { data, error } = await supabase
         .from('code_sessions')
         .select('*')
-        .order('updated_at', { ascending: false });
+        .or(`is_public.eq.true,owner_id.eq.${user.id}`)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       setSessions(data || []);
@@ -62,7 +44,7 @@ export const useCodeSession = (sessionId: string | null) => {
     }
   }, [user, toast]);
 
-  // Fetch single session
+  // Fetch specific session
   const fetchSession = useCallback(async (sessionId: string) => {
     if (!user) return;
     
@@ -79,7 +61,30 @@ export const useCodeSession = (sessionId: string | null) => {
       console.error('Error fetching session:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load code session',
+        description: 'Failed to load session',
+        variant: 'destructive',
+      });
+    }
+  }, [user, toast]);
+
+  // Fetch executions for a session
+  const fetchExecutions = useCallback(async (sessionId: string) => {
+    if (!user) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('code_executions')
+        .select('*')
+        .eq('session_id', sessionId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setExecutions(data || []);
+    } catch (error) {
+      console.error('Error fetching executions:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to load execution history',
         variant: 'destructive',
       });
     }
@@ -92,22 +97,32 @@ export const useCodeSession = (sessionId: string | null) => {
     try {
       const { error } = await supabase
         .from('code_sessions')
-        .update({ code, updated_at: new Date().toISOString() })
+        .update({ code })
         .eq('id', sessionId);
 
       if (error) throw error;
+      
+      if (session) {
+        setSession({ ...session, code });
+      }
     } catch (error) {
-      console.error('Error updating session:', error);
+      console.error('Error updating session code:', error);
       toast({
         title: 'Error',
-        description: 'Failed to update code',
+        description: 'Failed to save code',
         variant: 'destructive',
       });
     }
   };
 
   // Create a new session
-  const createSession = async (name: string, description: string = '', language: string = 'javascript', isPublic: boolean = false, teamId: string | null = null) => {
+  const createSession = async (
+    name: string,
+    description: string = '',
+    language: string = 'javascript',
+    isPublic: boolean = false,
+    teamId: string | null = null
+  ) => {
     if (!user) return;
 
     try {
@@ -117,10 +132,9 @@ export const useCodeSession = (sessionId: string | null) => {
           name,
           description,
           language,
-          owner_id: user.id,
-          team_id: teamId,
           is_public: isPublic,
-          code: `// Welcome to ${name}\n// Start coding here!\n\nfunction main() {\n  console.log("Hello, World!");\n}\n\nmain();`
+          team_id: teamId,
+          owner_id: user.id
         })
         .select()
         .single();
@@ -148,56 +162,28 @@ export const useCodeSession = (sessionId: string | null) => {
   const executeCode = async (code: string, language: string) => {
     if (!user || !sessionId) return;
 
-    const startTime = Date.now();
     try {
-      let output = '';
-      let errorMessage = null;
+      const { data, error } = await supabase.functions.invoke('code-executor', {
+        body: { code, language, sessionId }
+      });
 
-      // Simple JavaScript execution for demo
-      if (language === 'javascript') {
-        const logs: string[] = [];
-        const originalConsole = console.log;
-        
-        console.log = (...args) => {
-          logs.push(args.map(arg => String(arg)).join(' '));
-        };
+      if (error) throw error;
 
-        try {
-          const func = new Function(code);
-          const result = func();
-          
-          if (result !== undefined) {
-            logs.push(`Return value: ${result}`);
-          }
-          
-          output = logs.join('\n') || 'Code executed successfully (no output)';
-        } catch (error) {
-          errorMessage = error.message;
-        } finally {
-          console.log = originalConsole;
-        }
-      } else {
-        output = `Code execution for ${language} is not supported yet.\nSupported languages: JavaScript`;
-      }
-
-      const executionTime = Date.now() - startTime;
-
-      // Save execution to database
-      const { error } = await supabase
+      // Store execution history
+      await supabase
         .from('code_executions')
         .insert({
           session_id: sessionId,
           user_id: user.id,
           code,
           language,
-          output,
-          error_message: errorMessage,
-          execution_time: executionTime
+          output: data.output,
+          error_message: data.error,
+          execution_time: data.executionTime
         });
 
-      if (error) throw error;
-
-      return { output, error: errorMessage, executionTime };
+      await fetchExecutions(sessionId);
+      return data;
     } catch (error) {
       console.error('Error executing code:', error);
       toast({
@@ -205,7 +191,6 @@ export const useCodeSession = (sessionId: string | null) => {
         description: 'Failed to execute code',
         variant: 'destructive',
       });
-      return { output: '', error: 'Execution failed', executionTime: 0 };
     }
   };
 
@@ -235,8 +220,8 @@ export const useCodeSession = (sessionId: string | null) => {
           table: 'code_executions',
           filter: `session_id=eq.${sessionId}`
         },
-        (payload) => {
-          setExecutions(prev => [...prev, payload.new as CodeExecution]);
+        () => {
+          fetchExecutions(sessionId);
         }
       )
       .subscribe();
@@ -244,7 +229,7 @@ export const useCodeSession = (sessionId: string | null) => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [sessionId]);
+  }, [sessionId, fetchExecutions]);
 
   // Initial data fetch
   useEffect(() => {
@@ -254,18 +239,21 @@ export const useCodeSession = (sessionId: string | null) => {
   useEffect(() => {
     if (sessionId) {
       fetchSession(sessionId);
+      fetchExecutions(sessionId);
     }
-  }, [sessionId, fetchSession]);
+  }, [sessionId, fetchSession, fetchExecutions]);
 
   return {
     session,
     sessions,
     executions,
+    participants,
     loading,
     updateSessionCode,
     createSession,
     executeCode,
     fetchSessions,
-    fetchSession
+    fetchSession,
+    fetchExecutions
   };
 };

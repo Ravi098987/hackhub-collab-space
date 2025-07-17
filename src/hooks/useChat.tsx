@@ -3,31 +3,15 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { Database } from '@/integrations/supabase/types';
 
-export interface ChatRoom {
-  id: string;
-  name: string;
-  description: string | null;
-  room_type: 'public' | 'private' | 'team';
-  team_id: string | null;
-  created_by: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface ChatMessage {
-  id: string;
-  room_id: string;
-  user_id: string;
-  message: string;
-  message_type: 'text' | 'code' | 'file' | 'system';
-  metadata: any;
-  created_at: string;
+export type ChatRoom = Database['public']['Tables']['chat_rooms']['Row'];
+export type ChatMessage = Database['public']['Tables']['chat_messages']['Row'] & {
   profiles?: {
     display_name: string | null;
     email: string | null;
   };
-}
+};
 
 export const useChat = (roomId: string | null) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
