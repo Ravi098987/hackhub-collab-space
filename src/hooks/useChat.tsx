@@ -3,15 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { Database } from '@/integrations/supabase/types';
-
-export type ChatRoom = Database['public']['Tables']['chat_rooms']['Row'];
-export type ChatMessage = Database['public']['Tables']['chat_messages']['Row'] & {
-  profiles?: {
-    display_name: string | null;
-    email: string | null;
-  };
-};
+import { ChatRoom, ChatMessage } from '@/types/chat';
 
 export const useChat = (roomId: string | null) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);

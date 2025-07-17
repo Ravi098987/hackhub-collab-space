@@ -3,11 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { Database } from '@/integrations/supabase/types';
-
-export type CodeSession = Database['public']['Tables']['code_sessions']['Row'];
-export type CodeExecution = Database['public']['Tables']['code_executions']['Row'];
-export type CodeSessionParticipant = Database['public']['Tables']['code_session_participants']['Row'];
+import { CodeSession, CodeExecution, CodeSessionParticipant } from '@/types/chat';
 
 export const useCodeSession = (sessionId: string | null) => {
   const [session, setSession] = useState<CodeSession | null>(null);
