@@ -1,1 +1,8 @@
+
 project_id = "khmvnzmpukrfaxushdci"
+
+[functions.user-analytics]
+verify_jwt = true
+
+[functions.team-management]
+verify_jwt = true

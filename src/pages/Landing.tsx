@@ -215,7 +215,7 @@ export default function Landing() {
             <a href="#hackathons" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Hackathons</a>
             <a href="#testimonials" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Success Stories</a>
             <a href="#builders" className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105">Builders</a>
-            <a href="#auth">
+            <a href="/auth">
               <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-full hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105 font-medium">
                 Join Revolution
               </Button>
