@@ -6,3 +6,9 @@ verify_jwt = true
 
 [functions.team-management]
 verify_jwt = true
+
+[functions.chat-manager]
+verify_jwt = true
+
+[functions.code-executor]
+verify_jwt = true
