@@ -19,12 +19,12 @@ export const useChat = (roomId: string | null) => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('chat_rooms')
+        .from('chat_rooms' as any)
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setRooms(data || []);
+      setRooms(data as ChatRoom[] || []);
     } catch (error) {
       console.error('Error fetching rooms:', error);
       toast({
@@ -44,7 +44,7 @@ export const useChat = (roomId: string | null) => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('chat_messages')
+        .from('chat_messages' as any)
         .select(`
           *,
           profiles!inner(display_name, email)
@@ -53,7 +53,7 @@ export const useChat = (roomId: string | null) => {
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      setMessages(data || []);
+      setMessages(data as ChatMessage[] || []);
     } catch (error) {
       console.error('Error fetching messages:', error);
       toast({
@@ -72,7 +72,7 @@ export const useChat = (roomId: string | null) => {
 
     try {
       const { error } = await supabase
-        .from('chat_messages')
+        .from('chat_messages' as any)
         .insert({
           room_id: roomId,
           user_id: user.id,
@@ -98,7 +98,7 @@ export const useChat = (roomId: string | null) => {
 
     try {
       const { data, error } = await supabase
-        .from('chat_rooms')
+        .from('chat_rooms' as any)
         .insert({
           name,
           description,
@@ -145,7 +145,7 @@ export const useChat = (roomId: string | null) => {
         async (payload) => {
           // Fetch the complete message with profile info
           const { data } = await supabase
-            .from('chat_messages')
+            .from('chat_messages' as any)
             .select(`
               *,
               profiles!inner(display_name, email)
@@ -154,7 +154,7 @@ export const useChat = (roomId: string | null) => {
             .single();
 
           if (data) {
-            setMessages(prev => [...prev, data]);
+            setMessages(prev => [...prev, data as ChatMessage]);
           }
         }
       )

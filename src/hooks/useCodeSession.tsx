@@ -21,13 +21,13 @@ export const useCodeSession = (sessionId: string | null) => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('code_sessions')
+        .from('code_sessions' as any)
         .select('*')
         .or(`is_public.eq.true,owner_id.eq.${user.id}`)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setSessions(data || []);
+      setSessions(data as CodeSession[] || []);
     } catch (error) {
       console.error('Error fetching sessions:', error);
       toast({
@@ -46,13 +46,13 @@ export const useCodeSession = (sessionId: string | null) => {
     
     try {
       const { data, error } = await supabase
-        .from('code_sessions')
+        .from('code_sessions' as any)
         .select('*')
         .eq('id', sessionId)
         .single();
 
       if (error) throw error;
-      setSession(data);
+      setSession(data as CodeSession);
     } catch (error) {
       console.error('Error fetching session:', error);
       toast({
@@ -69,13 +69,13 @@ export const useCodeSession = (sessionId: string | null) => {
     
     try {
       const { data, error } = await supabase
-        .from('code_executions')
+        .from('code_executions' as any)
         .select('*')
         .eq('session_id', sessionId)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setExecutions(data || []);
+      setExecutions(data as CodeExecution[] || []);
     } catch (error) {
       console.error('Error fetching executions:', error);
       toast({
@@ -92,7 +92,7 @@ export const useCodeSession = (sessionId: string | null) => {
 
     try {
       const { error } = await supabase
-        .from('code_sessions')
+        .from('code_sessions' as any)
         .update({ code })
         .eq('id', sessionId);
 
@@ -123,7 +123,7 @@ export const useCodeSession = (sessionId: string | null) => {
 
     try {
       const { data, error } = await supabase
-        .from('code_sessions')
+        .from('code_sessions' as any)
         .insert({
           name,
           description,
@@ -167,7 +167,7 @@ export const useCodeSession = (sessionId: string | null) => {
 
       // Store execution history
       await supabase
-        .from('code_executions')
+        .from('code_executions' as any)
         .insert({
           session_id: sessionId,
           user_id: user.id,
