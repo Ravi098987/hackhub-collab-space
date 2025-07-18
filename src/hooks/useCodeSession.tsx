@@ -27,7 +27,7 @@ export const useCodeSession = (sessionId: string | null) => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setSessions(data as CodeSession[] || []);
+      setSessions(data as unknown as CodeSession[] || []);
     } catch (error) {
       console.error('Error fetching sessions:', error);
       toast({
@@ -52,7 +52,7 @@ export const useCodeSession = (sessionId: string | null) => {
         .single();
 
       if (error) throw error;
-      setSession(data as CodeSession);
+      setSession(data as unknown as CodeSession);
     } catch (error) {
       console.error('Error fetching session:', error);
       toast({
@@ -75,7 +75,7 @@ export const useCodeSession = (sessionId: string | null) => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setExecutions(data as CodeExecution[] || []);
+      setExecutions(data as unknown as CodeExecution[] || []);
     } catch (error) {
       console.error('Error fetching executions:', error);
       toast({

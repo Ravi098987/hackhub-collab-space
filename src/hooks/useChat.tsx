@@ -24,7 +24,7 @@ export const useChat = (roomId: string | null) => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setRooms(data as ChatRoom[] || []);
+      setRooms(data as unknown as ChatRoom[] || []);
     } catch (error) {
       console.error('Error fetching rooms:', error);
       toast({
@@ -53,7 +53,7 @@ export const useChat = (roomId: string | null) => {
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      setMessages(data as ChatMessage[] || []);
+      setMessages(data as unknown as ChatMessage[] || []);
     } catch (error) {
       console.error('Error fetching messages:', error);
       toast({
@@ -154,7 +154,7 @@ export const useChat = (roomId: string | null) => {
             .single();
 
           if (data) {
-            setMessages(prev => [...prev, data as ChatMessage]);
+            setMessages(prev => [...prev, data as unknown as ChatMessage]);
           }
         }
       )

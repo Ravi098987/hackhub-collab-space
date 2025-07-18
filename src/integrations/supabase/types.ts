@@ -17,6 +17,7 @@ export type Database = {
       categories: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           id: string
           name: string
@@ -24,6 +25,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           id?: string
           name: string
@@ -31,6 +33,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           id?: string
           name?: string
@@ -228,6 +231,7 @@ export type Database = {
         Row: {
           category_id: string | null
           created_at: string | null
+          created_by: string | null
           description: string | null
           id: string
           maximum_stock: number | null
@@ -241,6 +245,7 @@ export type Database = {
         Insert: {
           category_id?: string | null
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           id?: string
           maximum_stock?: number | null
@@ -254,6 +259,7 @@ export type Database = {
         Update: {
           category_id?: string | null
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           id?: string
           maximum_stock?: number | null
@@ -366,6 +372,7 @@ export type Database = {
           address: string | null
           contact_person: string | null
           created_at: string | null
+          created_by: string | null
           email: string | null
           id: string
           name: string
@@ -376,6 +383,7 @@ export type Database = {
           address?: string | null
           contact_person?: string | null
           created_at?: string | null
+          created_by?: string | null
           email?: string | null
           id?: string
           name: string
@@ -386,6 +394,7 @@ export type Database = {
           address?: string | null
           contact_person?: string | null
           created_at?: string | null
+          created_by?: string | null
           email?: string | null
           id?: string
           name?: string
