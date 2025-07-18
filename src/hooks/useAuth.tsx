@@ -26,14 +26,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast()
 
   useEffect(() => {
-    // Set up auth state listener
+    // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         console.log('Auth state changed:', event, session?.user?.email)
         setSession(session)
         setUser(session?.user ?? null)
-        setLoading(false)
-
+        
         // Handle successful sign in
         if (event === 'SIGNED_IN' && session?.user) {
           toast({
@@ -41,10 +40,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             description: "You have successfully signed in.",
           })
         }
+        
+        // Handle sign out
+        if (event === 'SIGNED_OUT') {
+          setSession(null)
+          setUser(null)
+        }
+        
+        setLoading(false)
       }
     )
 
-    // Check for existing session
+    // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setUser(session?.user ?? null)
@@ -96,8 +103,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       })
     } else {
       toast({
-        title: "Account created!",
-        description: "Please check your email to verify your account.",
+        title: "Check your email!",
+        description: "We sent you a confirmation link. Please check your email and click the link to verify your account.",
       })
     }
     
@@ -111,6 +118,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        }
       }
     })
     
@@ -120,9 +131,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         description: error.message,
         variant: "destructive",
       })
+      setLoading(false)
     }
     
-    setLoading(false)
     return { error }
   }
 
@@ -132,6 +143,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       provider: 'github',
       options: {
         redirectTo: `${window.location.origin}/`,
+        scopes: 'user:email'
       }
     })
     
@@ -141,9 +153,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         description: error.message,
         variant: "destructive",
       })
+      setLoading(false)
     }
     
-    setLoading(false)
     return { error }
   }
 
@@ -162,9 +174,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         description: error.message,
         variant: "destructive",
       })
+      setLoading(false)
     }
     
-    setLoading(false)
     return { error }
   }
 
