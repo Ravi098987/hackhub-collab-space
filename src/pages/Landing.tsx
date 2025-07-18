@@ -231,29 +231,30 @@ export default function Landing() {
             🏆 Join 50,000+ Elite Developers Worldwide
           </Badge>
           
-          <h1 className="text-7xl md:text-9xl font-black text-white mb-12 leading-tight">
-            Build. Collaborate.
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent block animate-pulse">
-              Hack. 🚀
+          <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-tight">
+            Build Tomorrow's
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent block">
+              Solutions Today
             </span>
           </h1>
           
-          <p className="text-3xl text-gray-200 mb-6 max-w-4xl mx-auto font-light">
-            Your ultimate platform for organizing and joining virtual hackathons.
+          <p className="text-2xl md:text-3xl text-gray-200 mb-6 max-w-4xl mx-auto font-light leading-relaxed">
+            The premier platform where innovation meets collaboration
           </p>
-          <p className="text-xl text-purple-300 mb-16 max-w-3xl mx-auto leading-relaxed">
-            Transform your boldest ideas into reality in just 48 hours. Join the world's most exciting hackathon platform where innovation meets unlimited opportunity.
+          <p className="text-lg md:text-xl text-purple-300 mb-16 max-w-3xl mx-auto leading-relaxed">
+            Join global hackathons, build with the best developers, and turn your ideas into industry-changing solutions. Experience the future of collaborative development.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-8 justify-center mb-20">
-            <a href="#auth">
+            <a href="/auth">
               <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-12 py-6 text-xl rounded-full shadow-2xl shadow-purple-500/30 hover:shadow-3xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-110 font-semibold">
-                Get Started Free <ArrowRight className="w-7 h-7 ml-4" />
+                Start Building <ArrowRight className="w-7 h-7 ml-4" />
               </Button>
             </a>
-            <a href="#auth">
-              <Button size="lg" className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-12 py-6 text-xl rounded-full shadow-2xl shadow-green-500/30 hover:shadow-3xl hover:shadow-green-500/40 transition-all duration-300 hover:scale-110 font-semibold">
-                Host Hackathon <Rocket className="w-7 h-7 ml-4" />
+            <a href="/auth">
+              <Button size="lg" variant="outline" className="text-white border-white/60 hover:bg-white hover:text-slate-900 px-12 py-6 text-xl rounded-full backdrop-blur-sm bg-white/10 hover:scale-110 transition-all duration-300 font-semibold">
+                <Rocket className="w-7 h-7 mr-4" />
+                Host Event
               </Button>
             </a>
             <VideoModal>
@@ -271,7 +272,7 @@ export default function Landing() {
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   {stat.icon}
                 </div>
-                <div className="text-5xl font-black text-white mb-3">{stat.number}</div>
+                <div className="text-4xl md:text-5xl font-black text-white mb-3">{stat.number}</div>
                 <div className="text-gray-300 text-lg font-medium">{stat.label}</div>
               </div>
             ))}
